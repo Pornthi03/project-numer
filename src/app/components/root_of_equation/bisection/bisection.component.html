@@ -1,0 +1,41 @@
+<div class="container">
+  <form [formGroup]="bisectiongroup">
+    <mat-form-field appearance="fill">
+      <mat-label>สมการ</mat-label>
+      <input matInput formControlName="equation">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>ขอบซ้าย</mat-label>
+      <input matInput formControlName="xl">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>ขอบขวา</mat-label>
+      <input matInput formControlName="xr">
+    </mat-form-field>
+    <br/>
+    <button mat-raised-button color="primary" (click)="cal(bisectiongroup.value,bisectiongroup)">calculate</button>
+  </form>
+  <p><b>Retrieve values from the form:</b><br/>
+    {{ bisectiongroup.value | json}}<br/>
+  </p>
+  <h3>Equation : {{bisectiongroup.value.equation}}</h3>
+  <h3>Answer : {{answer}}</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>iteration</th>
+        <th>xl</th>
+        <th>xr</th>
+        <th>xm</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of variable">
+        <td>{{ v.iteration }}</td>
+        <td>{{ v.xl }}</td>
+        <td>{{ v.xr }}</td>
+        <td>{{ v.xm }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
