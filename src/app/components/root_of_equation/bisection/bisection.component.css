@@ -11,8 +11,11 @@
   flex-direction: column;
   justify-content: center;
 }
-#divChart{
+#mychart {
   display: block;
-  width: 400px;
-  height: 400px;
+  width: 80%;
+  height: 80%;
+  margin: 0 auto;
 }
+
+

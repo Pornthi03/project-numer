@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { parse } from 'mathjs';
 import { VariableBisection } from './variable-bisection';
 import { BisectionService } from 'src/app/services/bisection.service';
+import { Chart, registerables } from "chart.js";
+import zoomPlugin from 'chartjs-plugin-zoom';
+import { fx } from 'jquery';
 
 @Component({
   selector: 'app-bisection',
@@ -22,6 +25,9 @@ export class BisectionComponent implements OnInit {
   // variable:VariableBisection;
   variable !: VariableBisection[];
   bisectiongroup:FormGroup;
+  xmArray:number[] = [];
+  fxmArray:number[] = [];
+  chart:any;
 
   constructor(private fb: FormBuilder,private bisectionService:BisectionService) {
     // this.variable = new VariableBisection("x^4-13",1.5,2.0,0,0,Math.pow(10,-6));
@@ -36,6 +42,49 @@ export class BisectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.chart = document.getElementById('mychart');
+    Chart.register(...registerables,zoomPlugin);
+    this.loadchart();
+  }
+
+  loadchart(): void{
+    new Chart(this.chart,{
+      type:'line',
+      data: {
+        datasets: [
+          {
+            data:this.fxmArray,
+            label:'series 1',
+            backgroundColor:'#5579c6',
+            tension:0.2,
+            borderColor:'#5579c6',
+          }
+        ],
+        labels:this.xmArray,
+      },
+      options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        scales:{
+          y:{
+            beginAtZero:true,
+          }
+        },
+        plugins: {
+          zoom: {
+            zoom: {
+              wheel: {
+                enabled: true,
+              },
+              pinch: {
+                enabled: true
+              },
+              mode: 'x',
+            }
+          }
+        }
+      }
+    })
   }
 
   getPage(){
@@ -71,15 +120,23 @@ export class BisectionComponent implements OnInit {
         b. xr = this.xm;
       }
       ++b.iteration
-      console.log(b.iteration)
+
       let form_record = new VariableBisection(f.get('equation')?.value,b.xl,b.xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
       this.bisectionService.addVariable(form_record)
+
+      this.fxmArray.push(fxm)
+
       if(Infinity === this.error){
         break
       }
-      // ++b.iteration;
-
     }
-    this.answer = this.xm;
+
+    this.answer = this.xm; // answer
+
+    // เอาค่า xm ใส่ array เพื่อเอาไปเป็นค่า x ของกราฟ
+    let dataxm = this.variable.values();
+    for(let value of dataxm){
+      this.xmArray.push(value.xm)
+    }
   }
 }

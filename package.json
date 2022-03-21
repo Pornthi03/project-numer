@@ -23,6 +23,7 @@
     "@types/canvasjs": "^1.9.7",
     "apexcharts": "^3.33.2",
     "chart.js": "^3.7.1",
+    "chartjs-plugin-zoom": "^1.2.0",
     "jquery": "^3.6.0",
     "mathjs": "^10.4.0",
     "ng-apexcharts": "^1.7.0",

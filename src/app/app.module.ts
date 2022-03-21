@@ -48,6 +48,7 @@ import { GaussjordanComponent } from './components/linear-algebraic/gaussjordan/
 import { LinechartComponent } from './components/root_of_equation/linechart/linechart.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,7 +99,6 @@ import { LinechartComponent } from './components/root_of_equation/linechart/line
     MatTableModule,
     MatSortModule,
     MatPaginatorModule
-
   ],
   providers: [],
   bootstrap: [AppComponent]
