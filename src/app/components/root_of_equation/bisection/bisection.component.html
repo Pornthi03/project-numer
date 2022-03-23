@@ -1,47 +1,62 @@
-<div class="container">
+<div id="container" >
   <form [formGroup]="bisectiongroup">
-    <mat-form-field appearance="fill">
-      <mat-label>สมการ</mat-label>
-      <input matInput formControlName="equation">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>ขอบซ้าย</mat-label>
-      <input matInput formControlName="xl">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>ขอบขวา</mat-label>
-      <input matInput formControlName="xr">
-    </mat-form-field>
-    <br/>
-    <button mat-raised-button color="primary" (click)="cal(bisectiongroup.value,bisectiongroup)">calculate</button>
+    <mat-card id="card">
+      <mat-card-title>BISECTION METHODS</mat-card-title>
+      <mat-form-field appearance="fill" id="form">
+        <mat-label>Equation</mat-label>
+        <input matInput formControlName="equation">
+      </mat-form-field>
+      <mat-form-field appearance="fill" id="form">
+        <mat-label>XL</mat-label>
+        <input matInput formControlName="xl">
+      </mat-form-field>
+      <mat-form-field appearance="fill" id="form">
+        <mat-label>XR</mat-label>
+        <input matInput formControlName="xr">
+      </mat-form-field>
+      <mat-form-field appearance="fill" id="form">
+        <mat-label>Epsilon</mat-label>
+        <input matInput formControlName="epsilon" placeholder="0.000001">
+      </mat-form-field>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="cal(bisectiongroup.value,bisectiongroup)">calculate</button>
+      </mat-card-actions>
+    </mat-card>
   </form>
-  <p><b>Retrieve values from the form:</b><br/>
-    {{ bisectiongroup.value | json}}<br/>
-  </p>
-  <h3>Equation : {{bisectiongroup.value.equation}}</h3>
-  <h3>Answer : {{answer}}</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>iteration</th>
-        <th>xl</th>
-        <th>xr</th>
-        <th>xm</th>
-        <th>error</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let v of variable">
-        <td>{{ v.iteration }}</td>
-        <td>{{ v.xl }}</td>
-        <td>{{ v.xr }}</td>
-        <td>{{ v.xm }}</td>
-        <td>{{ v.error }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <mat-card id="card">
+    <h3>Equation : {{bisectiongroup.value.equation}}</h3>
+    <h3>Answer : {{answer}}</h3>
+  </mat-card>
+  <div class="limiter">
+    <div>
+      <div>
+        <table>
+          <thead>
+            <tr class="table">
+              <th class="cell100 column1">Iteration</th>
+              <th class="cell100 column2">Xl</th>
+              <th class="cell100 column3">Xr</th>
+              <th class="cell100 column4">Xm</th>
+              <th class="cell100 column5">Error</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let v of variable">
+              <td>{{ v.iteration }}</td>
+              <td>{{ v.xl }}</td>
+              <td>{{ v.xr }}</td>
+              <td>{{ v.xm }}</td>
+              <td>{{ v.error }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 <div>
-  <canvas id="mychart"></canvas>
-</div><br/>
+  <canvas id="bisectionchart"></canvas>
+</div>
+<!-- <div [mathjax]="content"></div><br/> -->
 

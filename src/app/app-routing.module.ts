@@ -6,6 +6,7 @@ import { FalsepositionComponent } from './components/root_of_equation/falseposit
 import { OnepointComponent } from './components/root_of_equation/onepoint/onepoint.component';
 import { NewtonraphsonComponent } from './components/root_of_equation/newtonraphson/newtonraphson.component';
 import { SecantComponent } from './components/root_of_equation/secant/secant.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   {path: 'bisection',component:BisectionComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'onepoint',component:OnepointComponent},
   {path: 'newtonraphson',component:NewtonraphsonComponent},
   {path: 'secant',component:SecantComponent},
+  {path: '',component:HomeComponent},
 ];
 
 @NgModule({

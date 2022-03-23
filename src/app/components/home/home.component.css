@@ -1,0 +1,13 @@
+#card{
+  width: 60%;
+  height: 60%;
+  margin: 4% auto;
+  text-align: center;
+  font-family: 'PT Mono', monospace;
+}
+img{
+  width: 40%;
+}
+button{
+  font-family: 'PT Mono', monospace;
+}

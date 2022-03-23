@@ -1,4 +1,4 @@
-import { VariableBisection } from "../components/root_of_equation/bisection/variable-bisection";
+import { VariableBisection } from "../../components/root_of_equation/bisection/variable-bisection";
 
 export class Mockbisection {
   public static mbisection: VariableBisection[]=[

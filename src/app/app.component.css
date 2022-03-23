@@ -1,9 +1,8 @@
 .example-spacer {
   flex: 1 1 auto;
 }
-.formfield {
-  display: flex;
-  width: 60%;
-  flex-direction: column;
-  justify-content: center;
+mat-toolbar,button {
+  font-family: 'PT Mono', monospace;
+
 }
+
