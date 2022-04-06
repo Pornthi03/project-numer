@@ -6,6 +6,15 @@
         <mat-label>Equation</mat-label>
         <input matInput formControlName="equation">
       </mat-form-field>
+      <mat-label>OR</mat-label>
+      <mat-form-field appearance="fill" id="form">
+        <mat-label>Equation Example</mat-label>
+        <mat-select formControlName="equation">
+          <mat-option *ngFor="let equationselect of Equationselect" [value]="equationselect.equation">
+            {{equationselect.equation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field appearance="fill" id="form">
         <mat-label>XL</mat-label>
         <input matInput formControlName="xl">

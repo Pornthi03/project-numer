@@ -1,1 +1,64 @@
-<p>onepoint works!</p>
+<div id="container" >
+  <form [formGroup]="onepointgroup">
+    <mat-card id="card">
+      <mat-card-title>ONEPOINT METHODS</mat-card-title>
+      <mat-form-field appearance="fill" id="form">
+        <mat-label>Equation</mat-label>
+        <input matInput formControlName="equation">
+      </mat-form-field>
+      <mat-label>OR</mat-label>
+      <mat-form-field appearance="fill" id="form">
+        <mat-label>Equation Example</mat-label>
+        <mat-select formControlName="equation">
+          <mat-option *ngFor="let equationselect of Equationselect" [value]="equationselect.equation">
+            {{equationselect.equation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" id="form">
+        <mat-label>X</mat-label>
+        <input matInput formControlName="x">
+      </mat-form-field>
+      <mat-form-field appearance="fill" id="form">
+        <mat-label>Epsilon</mat-label>
+        <input matInput formControlName="epsilon" placeholder="0.000001">
+      </mat-form-field>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="cal(onepointgroup.value,onepointgroup)">calculate</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+  <mat-card id="card">
+    <h3>Equation : {{onepointgroup.value.equation}}</h3>
+    <h3>Answer : {{answer}}</h3>
+  </mat-card>
+  <div class="limiter">
+    <div>
+      <div>
+        <table>
+          <thead>
+            <tr class="table">
+              <th class="cell100 column1">Iteration</th>
+              <th class="cell100 column2">Xl</th>
+              <th class="cell100 column3">Fx</th>
+              <th class="cell100 column5">Error</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let v of variable">
+              <td>{{ v.iteration }}</td>
+              <td>{{ v.x }}</td>
+              <td>{{ v.fx }}</td>
+              <td>{{ v.error }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <canvas id="falsepositionchart"></canvas>
+</div><br/>
+

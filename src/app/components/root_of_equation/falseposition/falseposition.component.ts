@@ -5,7 +5,7 @@ import { VariableFalsepositon } from './variable-falsepositon';
 import { FalsepositionService } from 'src/app/services/falseposition/falseposition.service';
 import { Chart, registerables } from "chart.js";
 import zoomPlugin from 'chartjs-plugin-zoom';
-
+import { RestApiService } from 'src/app/services/rest-api.service';
 
 @Component({
   selector: 'app-falseposition',
@@ -14,16 +14,22 @@ import zoomPlugin from 'chartjs-plugin-zoom';
 })
 export class FalsepositionComponent implements OnInit {
 
+
+  Equationselect: any = [];
+
   answer?:number
-  error:number = 1;
+  error?:number;
   x1?:number
   variable !: VariableFalsepositon[];
   falsepositiongroup:FormGroup;
   x1Array:number[] = [];
+  xlArray:number[] = [];
+  xrArray:number[] = [];
   fx1Array:number[] = [];
+  errorArray:number[] = [];
   chart:any;
 
-  constructor(private fb: FormBuilder,private falsepositionService:FalsepositionService) {
+  constructor(private fb: FormBuilder,private falsepositionService:FalsepositionService,public restApi: RestApiService) {
     this.falsepositiongroup = this.fb.group({
       equation:['',Validators.required],
       xl: ['',Validators.required],
@@ -38,6 +44,13 @@ export class FalsepositionComponent implements OnInit {
     this.chart = document.getElementById('falsepositionchart');
     Chart.register(...registerables,zoomPlugin);
     this.loadchart();
+    this.loadEquation();
+  }
+
+  loadEquation() {
+    return this.restApi.getEquationfalseposition().subscribe((data: {}) => {
+      this.Equationselect = data;
+    });
   }
 
   loadchart(): void{
@@ -46,14 +59,35 @@ export class FalsepositionComponent implements OnInit {
       data: {
         datasets: [
           {
-            data:this.fx1Array,
-            label:'X1',
+            data:this.xlArray,
+            label:'XL',
             backgroundColor:'#5579c6',
             tension:0.2,
             borderColor:'#5579c6',
-          }
+          },
+          {
+            data:this.xrArray,
+            label:'XR',
+            backgroundColor:'#0492c2',
+            tension:0.2,
+            borderColor:'#0492c2',
+          },
+          {
+            data:this.x1Array,
+            label:'XM',
+            backgroundColor:'#e3242b',
+            tension:0.2,
+            borderColor:'#e3242b',
+          },
+          {
+            data:this.errorArray,
+            label:'ERROR',
+            backgroundColor:'#fcd12a',
+            tension:0.2,
+            borderColor:'#fcd12a',
+          },
         ],
-        labels:this.x1Array,
+        labels:this.fx1Array,
       },
       options:{
         responsive:true,
@@ -101,6 +135,7 @@ export class FalsepositionComponent implements OnInit {
       return +(+(+xl * +fxr) - +(+xr * +fxl)) / +(+fxr - +fxl)
   }
   cal(b:VariableFalsepositon,f:FormGroup){
+    this.error = this.calerror(b.xl,b.xr);
     while(this.error > b.epsilon){
       console.log(b.epsilon)
       let fxl:number = this.function(b.xl,b.equation)
@@ -120,7 +155,12 @@ export class FalsepositionComponent implements OnInit {
       }
       ++b.iteration
 
-      this.fx1Array.push(fx1)
+      this.fx1Array.push(fx1);
+      this.x1Array.push(this.x1);
+      this.xlArray.push(b.xl);
+      this.xrArray.push(b.xr);
+      this.errorArray.push(this.error)
+
 
       if(Infinity === this.error){
         break
@@ -129,12 +169,6 @@ export class FalsepositionComponent implements OnInit {
     }
 
     this.answer = this.x1; // answer
-
-    // เอาค่า x1 ใส่ array เพื่อเอาไปเป็นค่า x ของกราฟ
-    let datax1 = this.variable.values();
-    for(let value of datax1){
-      this.x1Array.push(value.x1)
-    }
   }
 
 }

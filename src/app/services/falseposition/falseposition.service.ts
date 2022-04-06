@@ -13,12 +13,12 @@ export class FalsepositionService {
     // this.falsepositionArray = Mockfalseposition.mfalsepositionn;
    }
 
-   getPage():VariableFalsepositon[]{
+  getPage():VariableFalsepositon[]{
     return this.falsepositionArray;
   }
 
-   addVariable(v:VariableFalsepositon): void{
-     this.falsepositionArray.push(v);
-   }
+  addVariable(v:VariableFalsepositon): void{
+    this.falsepositionArray.push(v);
+  }
 
 }

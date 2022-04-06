@@ -23,7 +23,10 @@ export class BisectionComponent implements OnInit {
   variable !: VariableBisection[];
   bisectiongroup:FormGroup;
   xmArray:number[] = [];
+  xlArray:number[] = [];
+  xrArray:number[] = [];
   fxmArray:number[] = [];
+  errorArray:number[] = [];
   chart:any;
 
   constructor(private fb: FormBuilder,private bisectionService:BisectionService,public restApi: RestApiService) {
@@ -48,7 +51,7 @@ export class BisectionComponent implements OnInit {
   }
 
   loadEquation() {
-    return this.restApi.getEquation().subscribe((data: {}) => {
+    return this.restApi.getEquationbisection().subscribe((data: {}) => {
       this.Equationselect = data;
     });
   }
@@ -59,14 +62,35 @@ export class BisectionComponent implements OnInit {
       data: {
         datasets: [
           {
-            data:this.fxmArray,
-            label:'XM',
+            data:this.xlArray,
+            label:'XL',
             backgroundColor:'#5579c6',
             tension:0.2,
             borderColor:'#5579c6',
           },
+          {
+            data:this.xrArray,
+            label:'XR',
+            backgroundColor:'#0492c2',
+            tension:0.2,
+            borderColor:'#0492c2',
+          },
+          {
+            data:this.xmArray,
+            label:'XM',
+            backgroundColor:'#e3242b',
+            tension:0.2,
+            borderColor:'#e3242b',
+          },
+          {
+            data:this.errorArray,
+            label:'ERROR',
+            backgroundColor:'#fcd12a',
+            tension:0.2,
+            borderColor:'#fcd12a',
+          },
         ],
-        labels:this.xmArray,
+        labels:this.fxmArray,
       },
 
       options:{
@@ -131,11 +155,15 @@ export class BisectionComponent implements OnInit {
         b.xl = this.xm;
       }else{
         this.error = this.calerror(this.xm,b.xr);
-        b. xr = this.xm;
+        b.xr = this.xm;
       }
       ++b.iteration
 
-      this.fxmArray.push(fxm)
+      this.fxmArray.push(fxm);
+      this.errorArray.push(this.error);
+      this.xmArray.push(this.xm);
+      this.xlArray.push(b.xl);
+      this.xrArray.push(b.xr);
 
       if(Infinity === this.error){
         break
@@ -143,12 +171,6 @@ export class BisectionComponent implements OnInit {
     }
 
     this.answer = this.xm; // answer
-
-    // เอาค่า xm ใส่ array เพื่อเอาไปเป็นค่า x ของกราฟ
-    let dataxm = this.variable.values();
-    for(let value of dataxm){
-      this.xmArray.push(value.xm)
-    }
 
   }
   // content = "${"+this.showequation+"}$"

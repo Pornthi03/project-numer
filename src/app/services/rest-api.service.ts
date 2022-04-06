@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VariableBisection } from '../components/root_of_equation/bisection/variable-bisection';
 import { VariableFalsepositon } from '../components/root_of_equation/falseposition/variable-falsepositon';
+import { VariableOnepoint } from '../components/root_of_equation/onepoint/variable-onepoint';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -19,11 +20,24 @@ export class RestApiService {
     }),
   };
 
-  getEquation(): Observable<VariableBisection> {
+  getEquationbisection(): Observable<VariableBisection> {
     return this.http
       .get<VariableBisection>(this.apiURL + '/equation')
       .pipe(retry(1), catchError(this.handleError));
   }
+
+  getEquationfalseposition(): Observable<VariableFalsepositon> {
+    return this.http
+      .get<VariableFalsepositon>(this.apiURL + '/equation')
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getEquationonepoint(): Observable<VariableOnepoint> {
+    return this.http
+      .get<VariableOnepoint>(this.apiURL + '/equation')
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
 
   handleError(error: any) {
     let errorMessage = '';
