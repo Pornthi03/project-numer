@@ -1,0 +1,19 @@
+{
+  "equation": [{
+    "equation": "4x-1"
+  }, {
+    "equation": "x^2-3"
+  }, {
+    "equation": "x^3-x-1"
+  }, {
+    "equation": "2x^3-2x-5"
+  }, {
+    "equation": "e^-x*(3.2sin(x)-0.5cos(x))"
+  }, {
+    "equation": "3x + sin(x) - exp(x)"
+  }, {
+    "equation": "x - exp(-x)"
+  }, {
+    "equation": "x - sin(x) - (1/2)"
+  }]
+}
