@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { parse } from 'mathjs';
 import { VariableFalsepositon } from './variable-falsepositon';
-import { FalsepositionService } from 'src/app/services/falseposition/falseposition.service';
+import { RootService } from 'src/app/services/root.service';
 import { Chart, registerables } from "chart.js";
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -29,7 +29,7 @@ export class FalsepositionComponent implements OnInit {
   errorArray:number[] = [];
   chart:any;
 
-  constructor(private fb: FormBuilder,private falsepositionService:FalsepositionService,public restApi: RestApiService) {
+  constructor(private fb: FormBuilder,private falsepositionService:RootService,public restApi: RestApiService) {
     this.falsepositiongroup = this.fb.group({
       equation:['',Validators.required],
       xl: ['',Validators.required],
@@ -37,7 +37,7 @@ export class FalsepositionComponent implements OnInit {
       epsilon: ['0.000001'],
       iteration:['1']
     });
-    this.getPage();
+    this.getFalseposition();
   }
 
   ngOnInit(): void {
@@ -114,8 +114,8 @@ export class FalsepositionComponent implements OnInit {
     })
   }
 
-  getPage(){
-    this.variable = this.falsepositionService.getPage();
+  getFalseposition(){
+    this.variable = this.falsepositionService.getFalseposition();
   }
 
   function (x:number,equation:string):number {
@@ -144,7 +144,7 @@ export class FalsepositionComponent implements OnInit {
       let fx1:number = this.function(this.x1,b.equation)
 
       let form_record = new VariableFalsepositon(f.get('equation')?.value,b.xl,b.xr,this.x1,this.error,f.get('epsilon')?.value,b.iteration);
-      this.falsepositionService.addVariable(form_record)
+      this.falsepositionService.addFalseposition(form_record)
 
       if((fx1 * fxr) < 0 ){
         this.error = this.calerror(this.x1,b.xl);

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { parse } from 'mathjs';
 import { VariableBisection } from './variable-bisection';
-import { BisectionService } from 'src/app/services/bisection/bisection.service';
+import { RootService } from 'src/app/services/root.service';
 import { Chart, registerables } from "chart.js";
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -29,7 +29,7 @@ export class BisectionComponent implements OnInit {
   errorArray:number[] = [];
   chart:any;
 
-  constructor(private fb: FormBuilder,private bisectionService:BisectionService,public restApi: RestApiService) {
+  constructor(private fb: FormBuilder,private bisectionService:RootService,public restApi: RestApiService) {
     // this.variable = new VariableBisection("x^4-13",1.5,2.0,0,0,Math.pow(10,-6));
     this.bisectiongroup = this.fb.group({
       equation:['',Validators.required],
@@ -38,7 +38,7 @@ export class BisectionComponent implements OnInit {
       epsilon: ['0.000001'],
       iteration:['0']
     });
-    this.getPage();
+    this.getBisection();
   }
 
 
@@ -89,6 +89,7 @@ export class BisectionComponent implements OnInit {
             tension:0.2,
             borderColor:'#fcd12a',
           },
+
         ],
         labels:this.fxmArray,
       },
@@ -118,8 +119,8 @@ export class BisectionComponent implements OnInit {
     })
   }
 
-  getPage(){
-    this.variable = this.bisectionService.getPage();
+  getBisection(){
+    this.variable = this.bisectionService.getBisection();
   }
 
   function (x:number,equation:string):number {
@@ -148,7 +149,7 @@ export class BisectionComponent implements OnInit {
 
       console.log(this.error)
       let form_record = new VariableBisection(f.get('equation')?.value,b.xl,b.xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
-      this.bisectionService.addVariable(form_record)
+      this.bisectionService.addBisection(form_record)
 
       if((fxm * fxr) < 0 ){
         this.error = this.calerror(this.xm,b.xl);

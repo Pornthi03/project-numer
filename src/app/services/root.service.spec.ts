@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FalsepositionService } from './falseposition.service';
+import { RootService } from './root.service';
 
-describe('FalsepositionService', () => {
-  let service: FalsepositionService;
+describe('RootService', () => {
+  let service: RootService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FalsepositionService);
+    service = TestBed.inject(RootService);
   });
 
   it('should be created', () => {

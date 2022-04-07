@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VariableBisection } from '../components/root_of_equation/bisection/variable-bisection';
 import { VariableFalsepositon } from '../components/root_of_equation/falseposition/variable-falsepositon';
 import { VariableOnepoint } from '../components/root_of_equation/onepoint/variable-onepoint';
+import { VariableNewtonraphon } from '../components/root_of_equation/newtonraphson/variable-newtonraphon';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -11,7 +12,7 @@ import { retry, catchError } from 'rxjs/operators';
 })
 export class RestApiService {
 
-  apiURL = 'http://localhost:3000';
+  apiURL = 'https://my-json-server.typicode.com/Pornthi03/Numerical';
   constructor(private http: HttpClient) { }
 
   httpOptions = {
@@ -35,6 +36,12 @@ export class RestApiService {
   getEquationonepoint(): Observable<VariableOnepoint> {
     return this.http
       .get<VariableOnepoint>(this.apiURL + '/equation')
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getEquationnewtonraphson(): Observable<VariableNewtonraphon> {
+    return this.http
+      .get<VariableNewtonraphon>(this.apiURL + '/equation')
       .pipe(retry(1), catchError(this.handleError));
   }
 

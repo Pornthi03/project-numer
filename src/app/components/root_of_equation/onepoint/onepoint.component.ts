@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { parse } from 'mathjs';
 import { VariableOnepoint } from './variable-onepoint';
-import { OnepointService } from 'src/app/services/onepoint/onepoint.service';
+import { RootService } from 'src/app/services/root.service';
 import { Chart, registerables } from "chart.js";
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -25,18 +25,18 @@ export class OnepointComponent implements OnInit {
   fxArray:number[] = [];
   chart:any;
 
-  constructor(private fb: FormBuilder,private onepointService:OnepointService,public restApi: RestApiService) {
+  constructor(private fb: FormBuilder,private onepointService:RootService,public restApi: RestApiService) {
     this.onepointgroup = this.fb.group({
       equation:['',Validators.required],
       x: ['',Validators.required],
       epsilon: ['0.000001'],
       iteration:['1']
     });
-    this.getPage();
+    this.getOnepoint();
   }
 
   ngOnInit(): void {
-    this.chart = document.getElementById('falsepositionchart');
+    this.chart = document.getElementById('onepointchart');
     Chart.register(...registerables,zoomPlugin);
     this.loadchart();
     this.loadEquation();
@@ -88,8 +88,8 @@ export class OnepointComponent implements OnInit {
     })
   }
 
-  getPage(){
-    this.variable = this.onepointService.getPage();
+  getOnepoint(){
+    this.variable = this.onepointService.getOnepoint();
   }
 
   function (x:number,equation:string):number {
@@ -116,7 +116,7 @@ export class OnepointComponent implements OnInit {
       this.error = this.calerror(fx,this.x);
 
       let form_record = new VariableOnepoint(f.get('equation')?.value,this.x,fx,this.error,f.get('epsilon')?.value,b.iteration);
-      this.onepointService.addVariable(form_record)
+      this.onepointService.addOnepoint(form_record)
 
       this.x = fx;
 
@@ -131,7 +131,6 @@ export class OnepointComponent implements OnInit {
     }
 
     this.answer = this.x; // answer
-
 
   }
 }

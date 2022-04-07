@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+#container{
+  font-family: 'PT Mono', monospace;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+#form{
+  display: flex;
+  width: 60%;
+  flex-direction: column;
+  margin: 0 auto;
+}
+#newtonraphsonchart {
+  display: block;
+  width: 80%;
+  height: 80%;
+  margin: 0 auto;
+}
+#card{
+  width: 60%;
+  height: 60%;
+  margin: 8% auto;
+  text-align: center;
+}
+/* -------------------table -----------------------*/
+.limiter {
+  width: 60%;
+  margin: 4% auto;
+}
+th, td {
+  padding: 8px;
+  font-size: 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+mat-card,mat-form-field,mat-label,mat-option,mat-select,button,h3{
+  font-family: 'PT Mono', monospace;
+}
