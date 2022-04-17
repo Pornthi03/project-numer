@@ -3,6 +3,7 @@ import { VariableBisection } from '../components/root_of_equation/bisection/vari
 import { VariableFalsepositon } from '../components/root_of_equation/falseposition/variable-falsepositon';
 import { VariableOnepoint } from '../components/root_of_equation/onepoint/variable-onepoint';
 import { VariableNewtonraphon } from '../components/root_of_equation/newtonraphson/variable-newtonraphon';
+import { VariableSecant } from '../components/root_of_equation/secant/variable-secant';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class RootService {
   falsepositionArray:VariableFalsepositon[]=[];
   onepointArray:VariableOnepoint[]=[];
   newtonraphsonArray:VariableNewtonraphon[]=[];
+  secantArray:VariableSecant[]=[];
 
   constructor() { }
 // -------------------Bisection---------------------
@@ -50,5 +52,14 @@ export class RootService {
   addNewtonraphson(v:VariableNewtonraphon): void{
     this.newtonraphsonArray.push(v);
   }
+// -------------------Newtonraphson---------------------
+// -------------------Newtonraphson---------------------
+getSecant():VariableSecant[]{
+  return this.secantArray;
+}
+
+addSecant(v:VariableSecant): void{
+  this.secantArray.push(v);
+}
 // -------------------Newtonraphson---------------------
 }

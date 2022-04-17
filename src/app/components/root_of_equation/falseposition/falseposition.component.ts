@@ -35,7 +35,7 @@ export class FalsepositionComponent implements OnInit {
       xl: ['',Validators.required],
       xr: ['',Validators.required],
       epsilon: ['0.000001'],
-      iteration:['1']
+      iteration:['0']
     });
     this.getFalseposition();
   }
@@ -135,16 +135,36 @@ export class FalsepositionComponent implements OnInit {
       return +(+(+xl * +fxr) - +(+xr * +fxl)) / +(+fxr - +fxl)
   }
   cal(b:VariableFalsepositon,f:FormGroup){
-    this.error = this.calerror(b.xl,b.xr);
-    while(this.error > b.epsilon){
-      console.log(b.epsilon)
-      let fxl:number = this.function(b.xl,b.equation)
-      let fxr:number = this.function(b.xr,b.equation)
-      this.x1 = this.calx1(b.xl,b.xr,fxl,fxr)
-      let fx1:number = this.function(this.x1,b.equation)
+    let xl:number = b.xl;
+    let xr:number = b.xr;
 
-      let form_record = new VariableFalsepositon(f.get('equation')?.value,b.xl,b.xr,this.x1,this.error,f.get('epsilon')?.value,b.iteration);
+    let fxl:number = this.function(b.xl,b.equation)
+    let fxr:number = this.function(b.xr,b.equation)
+    this.x1 = this.calx1(b.xl,b.xr,fxl,fxr)
+    let fx1:number = this.function(this.x1,b.equation)
+
+    if((fx1 * fxr) < 0 ){
+      this.error = this.calerror(this.x1,b.xl);
+      b.xl = this.x1;
+    }else{
+      this.error = this.calerror(this.x1,b.xr);
+      b. xr = this.x1;
+    }
+
+    let form_record = new VariableFalsepositon(f.get('equation')?.value,xl,xr,this.x1,this.error,f.get('epsilon')?.value,b.iteration);
+
+    while(this.error > b.epsilon){
+
+      form_record = new VariableFalsepositon(f.get('equation')?.value,xl,xr,this.x1,this.error,f.get('epsilon')?.value,b.iteration);
       this.falsepositionService.addFalseposition(form_record)
+
+      xl = b.xl;
+      xr = b.xr;
+
+      fxl = this.function(b.xl,b.equation)
+      fxr = this.function(b.xr,b.equation)
+      this.x1 = this.calx1(b.xl,b.xr,fxl,fxr)
+      fx1 = this.function(this.x1,b.equation)
 
       if((fx1 * fxr) < 0 ){
         this.error = this.calerror(this.x1,b.xl);
@@ -167,6 +187,8 @@ export class FalsepositionComponent implements OnInit {
       }
       console.log(this.error)
     }
+    form_record = new VariableFalsepositon(f.get('equation')?.value,xl,xr,this.x1,this.error,f.get('epsilon')?.value,b.iteration);
+    this.falsepositionService.addFalseposition(form_record)
 
     this.answer = this.x1; // answer
   }

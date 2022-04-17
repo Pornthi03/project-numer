@@ -6,6 +6,7 @@ import { VariableOnepoint } from '../components/root_of_equation/onepoint/variab
 import { VariableNewtonraphon } from '../components/root_of_equation/newtonraphson/variable-newtonraphon';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { VariableSecant } from '../components/root_of_equation/secant/variable-secant';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,12 @@ export class RestApiService {
   getEquationnewtonraphson(): Observable<VariableNewtonraphon> {
     return this.http
       .get<VariableNewtonraphon>(this.apiURL + '/equation')
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getEquationsecant(): Observable<VariableSecant> {
+    return this.http
+      .get<VariableSecant>(this.apiURL + '/equation')
       .pipe(retry(1), catchError(this.handleError));
   }
 

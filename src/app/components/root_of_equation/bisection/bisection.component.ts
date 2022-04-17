@@ -123,6 +123,10 @@ export class BisectionComponent implements OnInit {
     this.variable = this.bisectionService.getBisection();
   }
 
+  refresh(): void {
+    window.location.reload();
+  }
+
   function (x:number,equation:string):number {
     try{
         let Equation = parse(equation);
@@ -140,16 +144,37 @@ export class BisectionComponent implements OnInit {
       return (+xl + +xr)/2
   }
   cal(b:VariableBisection,f:FormGroup){
-    this.error = this.calerror(b.xl,b.xr);
-    this.showequation = b.equation;
+
+    let xl:number = b.xl;
+    let xr:number = b.xr;
+
+    this.xm = this.calxm(b.xl,b.xr)
+    let fxm:number = this.function(this.xm,b.equation)
+    let fxr:number = this.function(b.xr,b.equation)
+
+    if((fxm * fxr) < 0 ){
+      this.error = this.calerror(this.xm,b.xl);
+      b.xl = this.xm;
+    }else{
+      this.error = this.calerror(this.xm,b.xr);
+      b.xr = this.xm;
+    }
+
+    let form_record = new VariableBisection(f.get('equation')?.value,xl,xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
+
     while(this.error > b.epsilon){
+
+      form_record = new VariableBisection(f.get('equation')?.value,xl,xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
+      this.bisectionService.addBisection(form_record)
+
+      xl = b.xl;
+      xr = b.xr;
+
       this.xm = this.calxm(b.xl,b.xr)
-      let fxm:number = this.function(this.xm,b.equation)
-      let fxr:number = this.function(b.xr,b.equation)
+      fxm = this.function(this.xm,b.equation)
+      fxr = this.function(b.xr,b.equation)
 
       console.log(this.error)
-      let form_record = new VariableBisection(f.get('equation')?.value,b.xl,b.xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
-      this.bisectionService.addBisection(form_record)
 
       if((fxm * fxr) < 0 ){
         this.error = this.calerror(this.xm,b.xl);
@@ -158,6 +183,7 @@ export class BisectionComponent implements OnInit {
         this.error = this.calerror(this.xm,b.xr);
         b.xr = this.xm;
       }
+
       ++b.iteration
 
       this.fxmArray.push(fxm);
@@ -170,6 +196,10 @@ export class BisectionComponent implements OnInit {
         break
       }
     }
+
+    form_record = new VariableBisection(f.get('equation')?.value,xl,xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
+    this.bisectionService.addBisection(form_record)
+
 
     this.answer = this.xm; // answer
 

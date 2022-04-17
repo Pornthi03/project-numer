@@ -18,7 +18,6 @@ export class NewtonraphsonComponent implements OnInit {
 
   answer?:number
   error?:number;
-  x?:number
   variable !: VariableNewtonraphon[];
   newtonraphsongroup:FormGroup;
   xArray:number[] = [];
@@ -60,14 +59,7 @@ export class NewtonraphsonComponent implements OnInit {
             label:'X',
             backgroundColor:'#5579c6',
             tension:0.2,
-            borderColor:'#5579c6',
-          },
-          {
-            data:this.slope,
-            label:'SLOPE',
-            backgroundColor:'#e3242b',
-            tension:0.2,
-            borderColor:'#e3242b',
+            borderColor:'#5579c6'
           }
         ],
         labels:this.fxArray,
@@ -126,25 +118,24 @@ export class NewtonraphsonComponent implements OnInit {
     return Math.abs((xN-xO)/xN);
   }
   cal(b:VariableNewtonraphon,f:FormGroup){
-    this.x = b.x;
-    let dfx = this.dfunction(this.x,b.equation);
-    let fx = this.x-(this.function(this.x,b.equation)/dfx);
-    this.error = this.calerror(fx,this.x);
+    let dfx = this.dfunction(b.x,b.equation);
+    let fx = b.x-(this.function(b.x,b.equation)/dfx);
+    this.error = this.calerror(fx,b.x);
     while(this.error > b.epsilon){
 
-      dfx = this.dfunction(this.x,b.equation);
-      fx = this.x-(this.function(this.x,b.equation)/dfx);
+      dfx = this.dfunction(b.x,b.equation);
+      fx = b.x-(this.function(b.x,b.equation)/dfx);
 
-      this.error = this.calerror(fx,this.x);
+      this.error = this.calerror(fx,b.x);
 
-      let form_record = new VariableNewtonraphon(f.get('equation')?.value,this.x,fx,dfx,this.error,f.get('epsilon')?.value,b.iteration);
+      let form_record = new VariableNewtonraphon(f.get('equation')?.value,b.x,fx,dfx,this.error,f.get('epsilon')?.value,b.iteration);
       this.newtonraphsonService.addNewtonraphson(form_record)
 
       this.fxArray.push(fx);
-      this.xArray.push(this.x);
+      this.xArray.push(b.x);
       this.dfxArray.push(dfx);
 
-      this.x = fx;
+      b.x = fx;
       ++b.iteration
 
       if(this.error === Infinity){
@@ -152,7 +143,7 @@ export class NewtonraphsonComponent implements OnInit {
       }
     }
 
-    this.answer = this.x; // answer
+    this.answer = b.x; // answer
 
   }
 }

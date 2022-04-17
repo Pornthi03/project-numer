@@ -1,7 +1,7 @@
 <div id="container" >
   <form [formGroup]="bisectiongroup">
     <mat-card id="card">
-      <mat-card-title>BISECTION METHODS</mat-card-title>
+      <mat-card-title (click)="refresh()">BISECTION METHODS</mat-card-title>
       <mat-form-field appearance="fill" id="form">
         <mat-label>Equation</mat-label>
         <input matInput formControlName="equation" >
