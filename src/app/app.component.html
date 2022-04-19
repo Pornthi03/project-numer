@@ -20,13 +20,13 @@
 
         <mat-menu #linearalgebraic="matMenu">
           <button routerLink="cramer" mat-menu-item>Cramer's Rule</button>
-          <button mat-menu-item disabled>Gauss Elimination Method</button>
-          <button mat-menu-item disabled>Gauss Jordan Method</button>
-          <button mat-menu-item disabled>LU Decomposition Method</button>
-          <button mat-menu-item disabled>Cholesky Decomposition Method</button>
-          <button mat-menu-item disabled>Jacobi Iteration Method</button>
-          <button mat-menu-item disabled>Gauss-seidel Iteration Method</button>
-          <button mat-menu-item disabled>Conjugate gradient Method</button>
+          <button routerLink="gausselimination" mat-menu-item>Gauss Elimination Method</button>
+          <button routerLink="gaussjordan" mat-menu-item>Gauss Jordan Method</button>
+          <button routerLink="LU" mat-menu-item>LU Decomposition Method</button>
+          <button routerLink="cholesky" mat-menu-item>Cholesky Decomposition Method</button>
+          <button routerLink="jacobi" mat-menu-item>Jacobi Iteration Method</button>
+          <button routerLink="seidel" mat-menu-item>Gauss-seidel Iteration Method</button>
+          <button routerLink="conjugate" mat-menu-item>Conjugate gradient Method</button>
         </mat-menu>
       </mat-toolbar-row>
     </mat-toolbar>

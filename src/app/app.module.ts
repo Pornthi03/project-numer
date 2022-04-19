@@ -51,6 +51,11 @@ import { LinechartComponent } from './components/root_of_equation/linechart/line
 import { HomeComponent } from './components/home/home.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { MatrixComponent } from './components/matrix/matrix.component';
+import { LUComponent } from './components/linear-algebraic/lu/lu.component';
+import { CholeskyComponent } from './components/linear-algebraic/cholesky/cholesky.component';
+import { JacobiComponent } from './components/linear-algebraic/jacobi/jacobi.component';
+import { GaussseidelComponent } from './components/linear-algebraic/gaussseidel/gaussseidel.component';
+import { ConjugateComponent } from './components/linear-algebraic/conjugate/conjugate.component';
 
 
 
@@ -67,7 +72,12 @@ import { MatrixComponent } from './components/matrix/matrix.component';
     GaussjordanComponent,
     LinechartComponent,
     HomeComponent,
-    MatrixComponent
+    MatrixComponent,
+    LUComponent,
+    CholeskyComponent,
+    JacobiComponent,
+    GaussseidelComponent,
+    ConjugateComponent
   ],
   imports: [
     AppRoutingModule,
