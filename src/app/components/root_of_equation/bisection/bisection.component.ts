@@ -41,8 +41,6 @@ export class BisectionComponent implements OnInit {
     this.getBisection();
   }
 
-
-
   ngOnInit(): void {
     this.chart = document.getElementById('bisectionchart');
     Chart.register(...registerables,zoomPlugin);
@@ -55,6 +53,7 @@ export class BisectionComponent implements OnInit {
       this.Equationselect = data;
     });
   }
+
 
   loadchart(): void{
     new Chart(this.chart,{

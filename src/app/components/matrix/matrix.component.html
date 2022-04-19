@@ -1,0 +1,30 @@
+<!-- <form formArrayName="form">
+  <div *ngFor="let row of form.controls;let i=index">
+    <input *ngFor="let col of row.controls" [formControl]="col">
+  </div>
+</form>
+
+<pre>
+  {{form?.value|json}}
+</pre> -->
+<form [formGroup]="test" >
+  <div formArrayName="m0">
+    <ng-container *ngFor="let row of m0Controls;let i = index">
+      <input type="text" [formControlName]="i">
+    </ng-container>
+  </div>
+  <div formArrayName="m1">
+    <ng-container *ngFor="let row of m1Controls;let i = index">
+      <input type="text" [formControlName]="i">
+    </ng-container>
+  </div>
+  <div formArrayName="m2">
+    <ng-container *ngFor="let row of m2Controls;let i = index">
+      <input type="text" [formControlName]="i">
+    </ng-container>
+  </div>
+</form>
+
+<pre>
+  {{test.value.mA}}
+</pre>

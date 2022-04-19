@@ -49,6 +49,8 @@ import { GausseliminationComponent } from './components/linear-algebraic/gaussel
 import { GaussjordanComponent } from './components/linear-algebraic/gaussjordan/gaussjordan.component';
 import { LinechartComponent } from './components/root_of_equation/linechart/linechart.component';
 import { HomeComponent } from './components/home/home.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { MatrixComponent } from './components/matrix/matrix.component';
 
 
 
@@ -64,12 +66,14 @@ import { HomeComponent } from './components/home/home.component';
     GausseliminationComponent,
     GaussjordanComponent,
     LinechartComponent,
-    HomeComponent
+    HomeComponent,
+    MatrixComponent
   ],
   imports: [
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgApexchartsModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
