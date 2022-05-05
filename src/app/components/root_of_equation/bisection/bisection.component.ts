@@ -60,20 +60,20 @@ export class BisectionComponent implements OnInit {
       type:'line',
       data: {
         datasets: [
-          {
-            data:this.xlArray,
-            label:'XL',
-            backgroundColor:'#5579c6',
-            tension:0.2,
-            borderColor:'#5579c6',
-          },
-          {
-            data:this.xrArray,
-            label:'XR',
-            backgroundColor:'#0492c2',
-            tension:0.2,
-            borderColor:'#0492c2',
-          },
+          // {
+          //   data:this.xlArray,
+          //   label:'XL',
+          //   backgroundColor:'#5579c6',
+          //   tension:0.2,
+          //   borderColor:'#5579c6',
+          // },
+          // {
+          //   data:this.xrArray,
+          //   label:'XR',
+          //   backgroundColor:'#0492c2',
+          //   tension:0.2,
+          //   borderColor:'#0492c2',
+          // },
           {
             data:this.xmArray,
             label:'XM',
@@ -81,13 +81,13 @@ export class BisectionComponent implements OnInit {
             tension:0.2,
             borderColor:'#e3242b',
           },
-          {
-            data:this.errorArray,
-            label:'ERROR',
-            backgroundColor:'#fcd12a',
-            tension:0.2,
-            borderColor:'#fcd12a',
-          },
+          // {
+          //   data:this.errorArray,
+          //   label:'ERROR',
+          //   backgroundColor:'#fcd12a',
+          //   tension:0.2,
+          //   borderColor:'#fcd12a',
+          // },
 
         ],
         labels:this.fxmArray,
@@ -191,10 +191,11 @@ export class BisectionComponent implements OnInit {
       this.xlArray.push(b.xl);
       this.xrArray.push(b.xr);
 
-      if(Infinity === this.error){
+      if(this.error == Infinity){
         break
       }
     }
+
 
     form_record = new VariableBisection(f.get('equation')?.value,xl,xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
     this.bisectionService.addBisection(form_record)
