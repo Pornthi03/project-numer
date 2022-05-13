@@ -9,6 +9,20 @@ import { det } from 'mathjs';
 })
 export class CramerComponent implements OnInit {
 
+  // name = 'Angular';
+  // rows = 5;
+  // cols = 3;
+  // form = new FormArray([])
+  // ngOnInit() {
+  //   for (let i = 0; i < this.rows; i++) {
+  //     this.form.push(new FormArray([]))
+  //     for (let j = 0; j < this.cols; j++) {
+  //       (this.form.at(i) as FormArray).push(new FormControl())
+  //     }
+
+  //   }
+  // }
+
   matrixA:Array<Array<number>> =   [
     [-2,3,1],
     [3,4,-5],
