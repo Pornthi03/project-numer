@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { parse } from 'mathjs';
+import { parse, string } from 'mathjs';
 import { VariableBisection } from './variable-bisection';
 import { RootService } from 'src/app/services/root.service';
 import { Chart, registerables } from "chart.js";
@@ -14,7 +14,8 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 })
 export class BisectionComponent implements OnInit {
 
-  Equationselect: any = [];
+  bisectionValue: any = [];
+  bs: any = [] ;
 
   showequation?:string;
   answer?:number
@@ -22,12 +23,15 @@ export class BisectionComponent implements OnInit {
   xm?:number
   variable !: VariableBisection[];
   bisectiongroup:FormGroup;
-  xmArray:number[] = [];
+  xmArray:string[] = [];
   xlArray:number[] = [];
   xrArray:number[] = [];
   fxmArray:number[] = [];
   errorArray:number[] = [];
   chart:any;
+
+  xl!:number;
+  xr!:number;
 
   constructor(private fb: FormBuilder,private bisectionService:RootService,public restApi: RestApiService) {
     // this.variable = new VariableBisection("x^4-13",1.5,2.0,0,0,Math.pow(10,-6));
@@ -48,49 +52,41 @@ export class BisectionComponent implements OnInit {
     this.loadEquation();
   }
 
-  loadEquation() {
-    return this.restApi.getEquationbisection().subscribe((data: {}) => {
-      this.Equationselect = data;
-    });
+  async loadEquation() {
+    console.log( await this.restApi.getEquationbisection().subscribe((data: {}) => {
+      this.bs = data;
+
+      for(let i=0;i<this.bs.Chapter[0].Bisection.length;i++){
+        this.bisectionValue.push(this.bs.Chapter[0].Bisection[i]);
+        console.log(this.bs.Chapter[0].Bisection[i]);
+      }
+      return this.bisectionValue
+
+    }))
+
+    console.log(this.bisectionValue);
   }
 
+  benz(p:string){
+    var benz = this.bisectionValue.find((x: any) => x.equation === p);
+    this.xl = benz.xl;
+    this.xr = benz.xr;
+  }
 
   loadchart(): void{
     new Chart(this.chart,{
       type:'line',
       data: {
         datasets: [
-          // {
-          //   data:this.xlArray,
-          //   label:'XL',
-          //   backgroundColor:'#5579c6',
-          //   tension:0.2,
-          //   borderColor:'#5579c6',
-          // },
-          // {
-          //   data:this.xrArray,
-          //   label:'XR',
-          //   backgroundColor:'#0492c2',
-          //   tension:0.2,
-          //   borderColor:'#0492c2',
-          // },
           {
-            data:this.xmArray,
+            data:this.fxmArray, //y
             label:'XM',
             backgroundColor:'#e3242b',
             tension:0.2,
             borderColor:'#e3242b',
           },
-          // {
-          //   data:this.errorArray,
-          //   label:'ERROR',
-          //   backgroundColor:'#fcd12a',
-          //   tension:0.2,
-          //   borderColor:'#fcd12a',
-          // },
-
         ],
-        labels:this.fxmArray,
+        labels:this.xmArray, //x
       },
 
       options:{
@@ -144,8 +140,8 @@ export class BisectionComponent implements OnInit {
   }
   cal(b:VariableBisection,f:FormGroup){
 
-    let xl:number = b.xl;
-    let xr:number = b.xr;
+    this.xl = b.xl;
+    this.xr = b.xr;
 
     this.xm = this.calxm(b.xl,b.xr)
     let fxm:number = this.function(this.xm,b.equation)
@@ -159,21 +155,21 @@ export class BisectionComponent implements OnInit {
       b.xr = this.xm;
     }
 
-    let form_record = new VariableBisection(f.get('equation')?.value,xl,xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
+    let form_record = new VariableBisection(f.get('equation')?.value,this.xl,this.xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
 
     while(this.error > b.epsilon){
 
-      form_record = new VariableBisection(f.get('equation')?.value,xl,xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
+      form_record = new VariableBisection(f.get('equation')?.value,this.xl,this.xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
       this.bisectionService.addBisection(form_record)
 
-      xl = b.xl;
-      xr = b.xr;
+      this.xl = b.xl;
+      this.xr = b.xr;
 
       this.xm = this.calxm(b.xl,b.xr)
       fxm = this.function(this.xm,b.equation)
       fxr = this.function(b.xr,b.equation)
 
-      console.log(this.error)
+      // console.log(this.error)
 
       if((fxm * fxr) < 0 ){
         this.error = this.calerror(this.xm,b.xl);
@@ -185,9 +181,12 @@ export class BisectionComponent implements OnInit {
 
       ++b.iteration
 
+      var xm = this.xm;
+
       this.fxmArray.push(fxm);
       this.errorArray.push(this.error);
-      this.xmArray.push(this.xm);
+      this.xmArray.push(xm.toFixed(6));
+      console.log(xm.toFixed(6));
       this.xlArray.push(b.xl);
       this.xrArray.push(b.xr);
 
@@ -197,12 +196,14 @@ export class BisectionComponent implements OnInit {
     }
 
 
-    form_record = new VariableBisection(f.get('equation')?.value,xl,xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
+    form_record = new VariableBisection(f.get('equation')?.value,this.xl,this.xr,this.xm,this.error,f.get('epsilon')?.value,b.iteration);
     this.bisectionService.addBisection(form_record)
 
 
     this.answer = this.xm; // answer
 
+
   }
+
   // content = "${"+this.showequation+"}$"
 }

@@ -13,7 +13,7 @@ import { VariableSecant } from '../components/root_of_equation/secant/variable-s
 })
 export class RestApiService {
 
-  apiURL = 'https://my-json-server.typicode.com/Pornthi03/Numerical';
+  apiURL = 'https://my-json-server.typicode.com/Pornthi03/Numerical/NumericalMethod';
   constructor(private http: HttpClient) { }
 
   httpOptions = {
@@ -22,9 +22,9 @@ export class RestApiService {
     }),
   };
 
-  getEquationbisection(): Observable<VariableBisection> {
+  getEquationbisection(): Observable<VariableBisection[]> {
     return this.http
-      .get<VariableBisection>(this.apiURL + '/equation')
+      .get<VariableBisection[]>(this.apiURL)
       .pipe(retry(1), catchError(this.handleError));
   }
 
