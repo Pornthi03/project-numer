@@ -14,7 +14,8 @@ import { VariableSecant } from './variable-secant';
 })
 export class SecantComponent implements OnInit {
 
-  Equationselect: any = [];
+  secantValue: any = [];
+  sc:any = [];
 
   answer?:number;
   error?:number;
@@ -43,10 +44,19 @@ export class SecantComponent implements OnInit {
     this.loadEquation();
   }
 
-  loadEquation() {
-    return this.restApi.getEquationsecant().subscribe((data: {}) => {
-      this.Equationselect = data;
-    });
+  async loadEquation() {
+    console.log( await this.restApi.getEquation().subscribe((data: {}) => {
+      this.sc = data;
+
+      for(let i=0;i<this.sc.Chapter[4].Secant.length;i++){
+        this.secantValue.push(this.sc.Chapter[4].Secant[i]);
+        console.log(this.sc.Chapter[4].Secant[i]);
+      }
+      return this.secantValue
+
+    }))
+
+    console.log(this.secantValue);
   }
 
   loadchart(): void{

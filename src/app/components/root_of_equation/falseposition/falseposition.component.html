@@ -10,8 +10,8 @@
       <mat-form-field appearance="fill" id="form">
         <mat-label>Equation Example</mat-label>
         <mat-select formControlName="equation">
-          <mat-option *ngFor="let equationselect of Equationselect" [value]="equationselect.equation">
-            {{equationselect.equation}}
+          <mat-option *ngFor="let value of falsepositionValue" [value]="value.equation">
+            {{value.equation}}
           </mat-option>
         </mat-select>
       </mat-form-field>

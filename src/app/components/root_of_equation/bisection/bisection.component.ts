@@ -24,10 +24,7 @@ export class BisectionComponent implements OnInit {
   variable !: VariableBisection[];
   bisectiongroup:FormGroup;
   xmArray:string[] = [];
-  xlArray:number[] = [];
-  xrArray:number[] = [];
   fxmArray:number[] = [];
-  errorArray:number[] = [];
   chart:any;
 
   xl!:number;
@@ -53,7 +50,7 @@ export class BisectionComponent implements OnInit {
   }
 
   async loadEquation() {
-    console.log( await this.restApi.getEquationbisection().subscribe((data: {}) => {
+    console.log( await this.restApi.getEquation().subscribe((data: {}) => {
       this.bs = data;
 
       for(let i=0;i<this.bs.Chapter[0].Bisection.length;i++){
@@ -67,10 +64,10 @@ export class BisectionComponent implements OnInit {
     console.log(this.bisectionValue);
   }
 
-  benz(p:string){
-    var benz = this.bisectionValue.find((x: any) => x.equation === p);
-    this.xl = benz.xl;
-    this.xr = benz.xr;
+  getXLXR(p:string){
+    var XLXR = this.bisectionValue.find((x: any) => x.equation === p);
+    this.xl = XLXR.xl;
+    this.xr = XLXR.xr;
   }
 
   loadchart(): void{
@@ -183,12 +180,8 @@ export class BisectionComponent implements OnInit {
 
       var xm = this.xm;
 
-      this.fxmArray.push(fxm);
-      this.errorArray.push(this.error);
       this.xmArray.push(xm.toFixed(6));
       console.log(xm.toFixed(6));
-      this.xlArray.push(b.xl);
-      this.xrArray.push(b.xr);
 
       if(this.error == Infinity){
         break

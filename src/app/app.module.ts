@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MathjaxModule } from 'mathjax-angular';
+// import { MathjaxModule } from 'mathjax-angular';
 import { HttpClientModule } from '@angular/common/http';
 //Angular Material Components
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -49,7 +49,7 @@ import { GausseliminationComponent } from './components/linear-algebraic/gaussel
 import { GaussjordanComponent } from './components/linear-algebraic/gaussjordan/gaussjordan.component';
 import { LinechartComponent } from './components/root_of_equation/linechart/linechart.component';
 import { HomeComponent } from './components/home/home.component';
-import { NgApexchartsModule } from 'ng-apexcharts';
+// import { NgApexchartsModule } from 'ng-apexcharts';
 import { MatrixComponent } from './components/matrix/matrix.component';
 import { LUComponent } from './components/linear-algebraic/lu/lu.component';
 import { CholeskyComponent } from './components/linear-algebraic/cholesky/cholesky.component';
@@ -83,7 +83,6 @@ import { ConjugateComponent } from './components/linear-algebraic/conjugate/conj
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgApexchartsModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -118,19 +117,6 @@ import { ConjugateComponent } from './components/linear-algebraic/conjugate/conj
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MathjaxModule.forRoot({
-      "config": {
-        "loader": {
-          "load": ["output/svg", "[tex]/require", "[tex]/ams"]
-        },
-        "tex": {
-          "inlineMath": [["$", "$"]],
-          "packages": ["base", "require", "ams"]
-        },
-        "svg": { "fontCache": "global" }
-      },
-      "src": "https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/startup.js"
-    })
   ],
   providers: [],
   bootstrap: [AppComponent]

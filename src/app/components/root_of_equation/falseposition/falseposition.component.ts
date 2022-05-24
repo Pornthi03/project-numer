@@ -15,8 +15,8 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 export class FalsepositionComponent implements OnInit {
 
 
-  Equationselect: any = [];
-
+  falsepositionValue: any = [];
+  fs:any = [];
   answer?:number
   error?:number;
   x1?:number
@@ -47,10 +47,19 @@ export class FalsepositionComponent implements OnInit {
     this.loadEquation();
   }
 
-  loadEquation() {
-    return this.restApi.getEquationfalseposition().subscribe((data: {}) => {
-      this.Equationselect = data;
-    });
+  async loadEquation() {
+    console.log( await this.restApi.getEquation().subscribe((data: {}) => {
+      this.fs = data;
+
+      for(let i=0;i<this.fs.Chapter[1].FalsePosition.length;i++){
+        this.falsepositionValue.push(this.fs.Chapter[1].FalsePosition[i]);
+        console.log(this.fs.Chapter[1].FalsePosition[i]);
+      }
+      return this.falsepositionValue
+
+    }))
+
+    console.log(this.falsepositionValue);
   }
 
   loadchart(): void{

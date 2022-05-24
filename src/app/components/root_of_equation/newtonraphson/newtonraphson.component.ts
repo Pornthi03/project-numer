@@ -14,7 +14,8 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 })
 export class NewtonraphsonComponent implements OnInit {
 
-  Equationselect: any = [];
+  newtonValue: any = [];
+  nr:any = [];
 
   answer?:number
   error?:number;
@@ -43,10 +44,19 @@ export class NewtonraphsonComponent implements OnInit {
     this.loadEquation();
   }
 
-  loadEquation() {
-    return this.restApi.getEquationnewtonraphson().subscribe((data: {}) => {
-      this.Equationselect = data;
-    });
+  async loadEquation() {
+    console.log( await this.restApi.getEquation().subscribe((data: {}) => {
+      this.nr = data;
+
+      for(let i=0;i<this.nr.Chapter[3].NewtonRaphson.length;i++){
+        this.newtonValue.push(this.nr.Chapter[3].NewtonRaphson[i]);
+        console.log(this.nr.Chapter[3].NewtonRaphson[i]);
+      }
+      return this.newtonValue
+
+    }))
+
+    console.log(this.newtonValue);
   }
 
   loadchart(): void{

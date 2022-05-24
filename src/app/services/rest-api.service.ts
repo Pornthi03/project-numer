@@ -22,33 +22,9 @@ export class RestApiService {
     }),
   };
 
-  getEquationbisection(): Observable<VariableBisection[]> {
+  getEquation(): Observable<VariableBisection[]> {
     return this.http
       .get<VariableBisection[]>(this.apiURL)
-      .pipe(retry(1), catchError(this.handleError));
-  }
-
-  getEquationfalseposition(): Observable<VariableFalsepositon> {
-    return this.http
-      .get<VariableFalsepositon>(this.apiURL + '/equation')
-      .pipe(retry(1), catchError(this.handleError));
-  }
-
-  getEquationonepoint(): Observable<VariableOnepoint> {
-    return this.http
-      .get<VariableOnepoint>(this.apiURL + '/equation')
-      .pipe(retry(1), catchError(this.handleError));
-  }
-
-  getEquationnewtonraphson(): Observable<VariableNewtonraphon> {
-    return this.http
-      .get<VariableNewtonraphon>(this.apiURL + '/equation')
-      .pipe(retry(1), catchError(this.handleError));
-  }
-
-  getEquationsecant(): Observable<VariableSecant> {
-    return this.http
-      .get<VariableSecant>(this.apiURL + '/equation')
       .pipe(retry(1), catchError(this.handleError));
   }
 

@@ -14,7 +14,8 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 })
 export class OnepointComponent implements OnInit {
 
-  Equationselect: any = [];
+  onepointValue: any = [];
+  op:any = [];
 
   answer?:number
   error?:number;
@@ -42,10 +43,19 @@ export class OnepointComponent implements OnInit {
     this.loadEquation();
   }
 
-  loadEquation() {
-    return this.restApi.getEquationonepoint().subscribe((data: {}) => {
-      this.Equationselect = data;
-    });
+  async loadEquation() {
+    console.log( await this.restApi.getEquation().subscribe((data: {}) => {
+      this.op = data;
+
+      for(let i=0;i<this.op.Chapter[2].OnePoint.length;i++){
+        this.onepointValue.push(this.op.Chapter[2].OnePoint[i]);
+        console.log(this.op.Chapter[2].OnePoint[i]);
+      }
+      return this.onepointValue
+
+    }))
+
+    console.log(this.onepointValue);
   }
 
   loadchart(): void{

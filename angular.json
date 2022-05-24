@@ -1,12 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": "e77965c5-92fa-402e-b8f5-81bf65e1390e"
-  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "project-numer": {
+    "Numer": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -20,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/project-numer",
+            "outputPath": "dist/numer",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -33,9 +30,7 @@
               "src/custom-theme.scss",
               "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/apexcharts/dist/apexcharts.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -74,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "project-numer:build:production"
+              "browserTarget": "Numer:build:production"
             },
             "development": {
-              "browserTarget": "project-numer:build:development"
+              "browserTarget": "Numer:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -85,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "project-numer:build"
+            "browserTarget": "Numer:build"
           }
         },
         "test": {
@@ -104,12 +99,9 @@
             ],
             "scripts": []
           }
-        },
-        "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
   },
-  "defaultProject": "project-numer"
+  "defaultProject": "Numer"
 }
