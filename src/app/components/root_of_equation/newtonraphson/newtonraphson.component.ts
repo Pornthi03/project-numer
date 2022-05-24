@@ -23,9 +23,8 @@ export class NewtonraphsonComponent implements OnInit {
   newtonraphsongroup:FormGroup;
   xArray:number[] = [];
   fxArray:number[] = [];
-  dfxArray:number[]=[];
-  slope:number[]=[];
   chart:any;
+  x!:number;
 
   constructor(private fb: FormBuilder,private newtonraphsonService:RootService,public restApi: RestApiService) {
     this.newtonraphsongroup = this.fb.group({
@@ -59,20 +58,25 @@ export class NewtonraphsonComponent implements OnInit {
     console.log(this.newtonValue);
   }
 
+  getXLXR(p:string){
+    var XLXR = this.newtonValue.find((x: any) => x.equation === p);
+    this.x = XLXR.x;
+  }
+
   loadchart(): void{
     new Chart(this.chart,{
       type:'line',
       data: {
         datasets: [
           {
-            data:this.xArray,
+            data:this.fxArray,
             label:'X',
             backgroundColor:'#5579c6',
             tension:0.2,
             borderColor:'#5579c6'
           }
         ],
-        labels:this.fxArray,
+        labels:this.xArray,
       },
       options:{
         responsive:true,
@@ -128,6 +132,7 @@ export class NewtonraphsonComponent implements OnInit {
     return Math.abs((xN-xO)/xN);
   }
   cal(b:VariableNewtonraphon,f:FormGroup){
+
     let dfx = this.dfunction(b.x,b.equation);
     let fx = b.x-(this.function(b.x,b.equation)/dfx);
     this.error = this.calerror(fx,b.x);
@@ -143,7 +148,6 @@ export class NewtonraphsonComponent implements OnInit {
 
       this.fxArray.push(fx);
       this.xArray.push(b.x);
-      this.dfxArray.push(dfx);
 
       b.x = fx;
       ++b.iteration

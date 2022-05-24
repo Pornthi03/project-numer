@@ -10,14 +10,14 @@
       <mat-form-field appearance="fill" id="form">
         <mat-label>Equation Example</mat-label>
         <mat-select formControlName="equation">
-          <mat-option *ngFor="let value of onepointValue" [value]="value.equation">
+          <mat-option *ngFor="let value of onepointValue" [value]="value.equation" (click)="getXLXR(value.equation)">
             {{value.equation}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill" id="form">
         <mat-label>X</mat-label>
-        <input matInput formControlName="x">
+        <input matInput formControlName="x" [(ngModel)]="x">
       </mat-form-field>
       <mat-form-field appearance="fill" id="form">
         <mat-label>Epsilon</mat-label>
@@ -39,7 +39,7 @@
           <thead>
             <tr class="table">
               <th class="cell100 column1">Iteration</th>
-              <th class="cell100 column2">Xl</th>
+              <th class="cell100 column2">X</th>
               <th class="cell100 column3">Fx</th>
               <th class="cell100 column5">Error</th>
             </tr>

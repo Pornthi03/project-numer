@@ -10,18 +10,18 @@
       <mat-form-field appearance="fill" id="form">
         <mat-label>Equation Example</mat-label>
         <mat-select formControlName="equation">
-          <mat-option *ngFor="let value of falsepositionValue" [value]="value.equation">
+          <mat-option *ngFor="let value of falsepositionValue" [value]="value.equation" (click)="getXLXR(value.equation)">
             {{value.equation}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill" id="form">
         <mat-label>XL</mat-label>
-        <input matInput formControlName="xl">
+        <input matInput formControlName="xl" [(ngModel)]="xl">
       </mat-form-field>
       <mat-form-field appearance="fill" id="form">
         <mat-label>XR</mat-label>
-        <input matInput formControlName="xr">
+        <input matInput formControlName="xr" [(ngModel)]="xr">
       </mat-form-field>
       <mat-form-field appearance="fill" id="form">
         <mat-label>Epsilon</mat-label>

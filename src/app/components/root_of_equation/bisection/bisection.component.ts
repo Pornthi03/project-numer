@@ -137,9 +137,6 @@ export class BisectionComponent implements OnInit {
   }
   cal(b:VariableBisection,f:FormGroup){
 
-    this.xl = b.xl;
-    this.xr = b.xr;
-
     this.xm = this.calxm(b.xl,b.xr)
     let fxm:number = this.function(this.xm,b.equation)
     let fxr:number = this.function(b.xr,b.equation)

@@ -22,12 +22,12 @@ export class FalsepositionComponent implements OnInit {
   x1?:number
   variable !: VariableFalsepositon[];
   falsepositiongroup:FormGroup;
-  x1Array:number[] = [];
-  xlArray:number[] = [];
-  xrArray:number[] = [];
+  x1Array:string[] = [];
   fx1Array:number[] = [];
-  errorArray:number[] = [];
   chart:any;
+
+  xl!:number;
+  xr!:number;
 
   constructor(private fb: FormBuilder,private falsepositionService:RootService,public restApi: RestApiService) {
     this.falsepositiongroup = this.fb.group({
@@ -62,41 +62,26 @@ export class FalsepositionComponent implements OnInit {
     console.log(this.falsepositionValue);
   }
 
+  getXLXR(p:string){
+    var XLXR = this.falsepositionValue.find((x: any) => x.equation === p);
+    this.xl = XLXR.xl;
+    this.xr = XLXR.xr;
+  }
+
   loadchart(): void{
     new Chart(this.chart,{
       type:'line',
       data: {
         datasets: [
           {
-            data:this.xlArray,
-            label:'XL',
-            backgroundColor:'#5579c6',
-            tension:0.2,
-            borderColor:'#5579c6',
-          },
-          {
-            data:this.xrArray,
-            label:'XR',
-            backgroundColor:'#0492c2',
-            tension:0.2,
-            borderColor:'#0492c2',
-          },
-          {
-            data:this.x1Array,
-            label:'XM',
+            data:this.fx1Array,
+            label:'X1',
             backgroundColor:'#e3242b',
             tension:0.2,
             borderColor:'#e3242b',
-          },
-          {
-            data:this.errorArray,
-            label:'ERROR',
-            backgroundColor:'#fcd12a',
-            tension:0.2,
-            borderColor:'#fcd12a',
-          },
+          }
         ],
-        labels:this.fx1Array,
+        labels:this.x1Array,
       },
       options:{
         responsive:true,
@@ -144,8 +129,6 @@ export class FalsepositionComponent implements OnInit {
       return +(+(+xl * +fxr) - +(+xr * +fxl)) / +(+fxr - +fxl)
   }
   cal(b:VariableFalsepositon,f:FormGroup){
-    let xl:number = b.xl;
-    let xr:number = b.xr;
 
     let fxl:number = this.function(b.xl,b.equation)
     let fxr:number = this.function(b.xr,b.equation)
@@ -160,15 +143,15 @@ export class FalsepositionComponent implements OnInit {
       b. xr = this.x1;
     }
 
-    let form_record = new VariableFalsepositon(f.get('equation')?.value,xl,xr,this.x1,this.error,f.get('epsilon')?.value,b.iteration);
+    let form_record = new VariableFalsepositon(f.get('equation')?.value,this.xl,this.xr,this.x1,this.error,f.get('epsilon')?.value,b.iteration);
 
     while(this.error > b.epsilon){
 
-      form_record = new VariableFalsepositon(f.get('equation')?.value,xl,xr,this.x1,this.error,f.get('epsilon')?.value,b.iteration);
+      form_record = new VariableFalsepositon(f.get('equation')?.value,this.xl,this.xr,this.x1,this.error,f.get('epsilon')?.value,b.iteration);
       this.falsepositionService.addFalseposition(form_record)
 
-      xl = b.xl;
-      xr = b.xr;
+      this.xl = b.xl;
+      this.xr = b.xr;
 
       fxl = this.function(b.xl,b.equation)
       fxr = this.function(b.xr,b.equation)
@@ -185,10 +168,7 @@ export class FalsepositionComponent implements OnInit {
       ++b.iteration
 
       this.fx1Array.push(fx1);
-      this.x1Array.push(this.x1);
-      this.xlArray.push(b.xl);
-      this.xrArray.push(b.xr);
-      this.errorArray.push(this.error)
+      this.x1Array.push(this.x1.toFixed(6));
 
 
       if(Infinity === this.error){
@@ -196,7 +176,7 @@ export class FalsepositionComponent implements OnInit {
       }
       console.log(this.error)
     }
-    form_record = new VariableFalsepositon(f.get('equation')?.value,xl,xr,this.x1,this.error,f.get('epsilon')?.value,b.iteration);
+    form_record = new VariableFalsepositon(f.get('equation')?.value,this.xl,this.xr,this.x1,this.error,f.get('epsilon')?.value,b.iteration);
     this.falsepositionService.addFalseposition(form_record)
 
     this.answer = this.x1; // answer

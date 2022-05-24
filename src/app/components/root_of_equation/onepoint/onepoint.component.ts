@@ -22,9 +22,10 @@ export class OnepointComponent implements OnInit {
   x?:number
   variable !: VariableOnepoint[];
   onepointgroup:FormGroup;
-  xArray:number[] = [];
+  xArray:string[] = [];
   fxArray:number[] = [];
   chart:any;
+
 
   constructor(private fb: FormBuilder,private onepointService:RootService,public restApi: RestApiService) {
     this.onepointgroup = this.fb.group({
@@ -58,20 +59,25 @@ export class OnepointComponent implements OnInit {
     console.log(this.onepointValue);
   }
 
+  getXLXR(p:string){
+    var XLXR = this.onepointValue.find((x: any) => x.equation === p);
+    this.x = XLXR.x;
+  }
+
   loadchart(): void{
     new Chart(this.chart,{
       type:'line',
       data: {
         datasets: [
           {
-            data:this.xArray,
+            data:this.fxArray,
             label:'X',
             backgroundColor:'#5579c6',
             tension:0.2,
             borderColor:'#5579c6',
           }
         ],
-        labels:this.fxArray,
+        labels:this.xArray,
       },
       options:{
         responsive:true,
@@ -116,31 +122,31 @@ export class OnepointComponent implements OnInit {
       return Math.abs((xN-xO)/xN);
   }
   cal(b:VariableOnepoint,f:FormGroup){
-    this.x = b.x;
-    let fx = this.function(this.x,b.equation)
-    this.error = this.calerror(fx,this.x);
+
+    let fx = this.function(b.x,b.equation)
+    this.error = this.calerror(fx,b.x);
     while(this.error > b.epsilon){
 
-      fx = this.function(this.x,b.equation)
+      fx = this.function(b.x,b.equation)
 
-      this.error = this.calerror(fx,this.x);
+      this.error = this.calerror(fx,b.x);
 
-      let form_record = new VariableOnepoint(f.get('equation')?.value,this.x,fx,this.error,f.get('epsilon')?.value,b.iteration);
+      let form_record = new VariableOnepoint(f.get('equation')?.value,b.x,fx,this.error,f.get('epsilon')?.value,b.iteration);
       this.onepointService.addOnepoint(form_record)
 
-      this.x = fx;
+      b.x = fx;
 
       ++b.iteration
 
       this.fxArray.push(fx);
-      this.xArray.push(this.x);
+      this.xArray.push(b.x.toFixed(6));
 
-      if(this.error === Infinity){
+      if(this.error == Infinity){
         break;
       }
     }
 
-    this.answer = this.x; // answer
+    this.answer = b.x; // answer
 
   }
 }

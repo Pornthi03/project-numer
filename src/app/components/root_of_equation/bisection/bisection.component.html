@@ -10,7 +10,7 @@
       <mat-form-field appearance="fill" id="form">
         <mat-label>Equation Example</mat-label>
         <mat-select formControlName="equation">
-          <mat-option *ngFor="let value of bisectionValue" [value]="value.equation" (click)="benz(value.equation)">
+          <mat-option *ngFor="let value of bisectionValue" [value]="value.equation" (click)="getXLXR(value.equation)">
             {{value.equation}}
           </mat-option>
         </mat-select>

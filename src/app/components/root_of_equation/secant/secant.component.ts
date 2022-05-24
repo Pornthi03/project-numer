@@ -24,6 +24,8 @@ export class SecantComponent implements OnInit {
   xArray:number[] = [];
   fxArray:number[]=[];
   chart:any;
+  x!:number;
+  xi!:number;
 
   constructor(private fb: FormBuilder,private secantService:RootService,public restApi: RestApiService) {
     this.secantgroup = this.fb.group({
@@ -58,6 +60,11 @@ export class SecantComponent implements OnInit {
 
     console.log(this.secantValue);
   }
+  getXLXR(p:string){
+    var XLXR = this.secantValue.find((x: any) => x.equation === p);
+    this.x = XLXR.x;
+    this.xi = XLXR.xi;
+  }
 
   loadchart(): void{
     new Chart(this.chart,{
@@ -65,14 +72,14 @@ export class SecantComponent implements OnInit {
       data: {
         datasets: [
           {
-            data:this.xArray,
+            data:this.fxArray,
             label:'X',
             backgroundColor:'#5579c6',
             tension:0.2,
             borderColor:'#5579c6'
           }
         ],
-        labels:this.fxArray,
+        labels:this.xArray,
       },
       options:{
         responsive:true,
@@ -119,6 +126,7 @@ export class SecantComponent implements OnInit {
   }
 
   cal(b:VariableSecant,f:FormGroup){
+
     let fx = b.x-((this.function(b.x,b.equation)*(b.x-b.xi))/(this.function(b.x,b.equation)-this.function(b.xi,b.equation)));
     this.error = this.calerror(fx,b.x);
 
