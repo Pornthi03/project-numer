@@ -22,6 +22,11 @@ export class GaussjordanComponent implements OnInit {
       [0],
       [-4]
   ];
+
+  listMatrixA:Array<Array<Array<number>>> = [];
+  listMatrixB:Array<Array<Array<number>>> = [];
+  listMatrixX:Array<Array<Array<number>>> = [];
+
   private matrixX: Array<Array<number>> = [[0], [0], [0]];
   subtractArrayArray(array1:Array<number>,array2:Array<number>,index:number) : Array<number>{
     let result:Array<number> = [] ;
@@ -39,7 +44,7 @@ export class GaussjordanComponent implements OnInit {
     }
     return matrix;
   }
-  calculate(matrixA:Array<Array<number>>,matrixX:Array<Array<number>>,matrixB:Array<Array<number>>) : object{
+  calculate(matrixA:Array<Array<number>>,matrixX:Array<Array<number>>,matrixB:Array<Array<number>>) : any{
       let matrixTempA:Array<Array<number>> = JSON.parse(JSON.stringify(matrixA)),
           matrixTempB:Array<Array<number>> = JSON.parse(JSON.stringify(matrixB));
 
@@ -101,16 +106,16 @@ export class GaussjordanComponent implements OnInit {
           listMatrixB.push(JSON.parse(JSON.stringify(matrixTempB)));
           listMatrixX.push(JSON.parse(JSON.stringify(matrixTempB)));
       }
-      return(
-          {
-              listMatrixA:listMatrixA,
-              listMatrixB:listMatrixB,
-              listMatrixX:listMatrixX
-          }
-      );
+      // return(
+        //     {
+                this.listMatrixA = listMatrixA;
+                this.listMatrixB = listMatrixB;
+                this.listMatrixX = listMatrixX;
+            // }
+        // );
   }
   componentDidMount() {
-      console.log(        this.calculate(this.matrixA,this.matrixX,this.matrixB));
+      this.calculate(this.matrixA,this.matrixX,this.matrixB);
   }
 
 }

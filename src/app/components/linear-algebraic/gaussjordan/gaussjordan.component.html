@@ -1,4 +1,58 @@
-<mat-card-actions>
-  <button mat-raised-button color="primary" (click)="componentDidMount()">calculate</button>
-</mat-card-actions>
+<div id="container" >
+  <form>
+    <mat-card id="card">
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="componentDidMount()">calculate</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+  <!-- <mat-card id="card">
+    <div *ngFor="let row of listMatrixA;let i=index">
+      <h3>Iteration {{[i+1]}}</h3>
+      <h3>A :{{listMatrixA[i]}}</h3>
+      <h3>B :{{listMatrixB[i]}}</h3>
+    </div>
+    <h3>Answer :{{listMatrixX[2]}}</h3>
+  </mat-card> -->
+  <mat-card id="card">
+    <h3>Answer :{{listMatrixX[2]}}</h3>
+  </mat-card>
+  <div class="limiter">
+    <div>
+      <div>
+        <table>
+          <thead>
+            <tr class="table">
+              <th class="cell100 column1">Iteration</th>
+              <th class="cell100 column2">A</th>
+              <th class="cell100 column3">B</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let row of listMatrixA;let i=index">
+              <td>{{[i+1]}}</td>
+              <td>{{listMatrixA[i]}}</td>
+              <td>{{listMatrixB[i]}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <table>
+          <tr *ngFor="let Equationselect of Equationselect">
+            <td>{{Equationselect.equation}}</td>
+          </tr>
+        </table> -->
+      </div>
+    </div>
+  </div><br><br>
+  <!-- <form formArrayName="form">
+    <div *ngFor="let row of form.controls;let i=index">
+      <input *ngFor="let col of row.controls" [formControl]="col">
+    </div>
+  </form>
+
+  <pre>
+    {{form?.value|json}}
+  </pre> -->
+</div>
 
