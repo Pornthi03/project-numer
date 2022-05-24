@@ -21,7 +21,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Test
-        run: yarn test
+        run: yarn test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 
         env:
           CI: true
