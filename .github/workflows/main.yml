@@ -17,11 +17,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install packages
-        run: yarn install --frozen-lockfile
+      ‐ name: Setup
+        run: npm ci
 
       - name: Test
-        run: yarn test
+        run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 
         env:
           CI: true
