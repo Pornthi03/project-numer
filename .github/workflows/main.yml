@@ -1,27 +1,19 @@
 name: CI-numerical
 
-on: [push]
+on: push
 jobs:
-  install-and-test:
+  build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [17.x]
-
     steps:
-      - uses: actions/checkout@master
-
-      - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@master
+      ‐ uses: actions/checkout@v2
+      ‐ name: Use Node.js 16.x
+        uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 14.x
 
-      - name: Install packages
-        run: yarn install --frozen-lockfile
+      ‐ name: Setup
+        run: npm ci
 
-      - name: Test
-        run: yarn test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-
-        env:
-          CI: true
+      ‐ name: Test
+        run: |
+          npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
