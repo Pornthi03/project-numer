@@ -7,7 +7,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [17.x]
+        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@master
@@ -17,11 +17,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      ‐ name: Setup
-        run: npm ci
+      - name: Install packages
+        run: yarn install --frozen-lockfile
 
       - name: Test
-        run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+        run: yarn test
 
         env:
           CI: true
