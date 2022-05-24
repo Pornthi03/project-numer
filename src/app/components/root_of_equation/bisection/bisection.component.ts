@@ -175,10 +175,9 @@ export class BisectionComponent implements OnInit {
 
       ++b.iteration
 
-      var xm = this.xm;
-
-      this.xmArray.push(xm.toFixed(6));
-      console.log(xm.toFixed(6));
+      this.fxmArray.push(fxm);
+      this.xmArray.push(this.xm.toFixed(6));
+      console.log(this.xm.toFixed(6));
 
       if(this.error == Infinity){
         break

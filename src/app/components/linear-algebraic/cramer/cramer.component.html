@@ -1,12 +1,33 @@
-<mat-card-actions>
-  <button mat-raised-button color="primary" (click)="cal()">calculate</button>
-</mat-card-actions>
-<!-- <form formArrayName="form">
-  <div *ngFor="let row of form.controls;let i=index">
-    <input *ngFor="let col of row.controls" [formControl]="col">
-  </div>
-</form>
+<div id="container" >
 
-<pre>
-  {{form?.value|json}}
-</pre> -->
+    <mat-card id="card">
+      <!-- <mat-form-field appearance="fill" id="form">
+        <mat-label>row</mat-label>
+        <input matInput [(ngModel)]="rows" >
+      </mat-form-field>
+      <mat-form-field appearance="fill" id="form">
+        <mat-label>col</mat-label>
+        <input matInput [(ngModel)]="cols" >
+      </mat-form-field> -->
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="cal()">calculate</button>
+      </mat-card-actions>
+    </mat-card>
+
+  <mat-card id="card">
+    <h3>Det A :{{detA}}</h3>
+    <h3>Det A1 :{{detA1}}</h3>
+    <h3>Det A2 :{{detA2}}</h3>
+    <h3>Det A3 :{{detA3}}</h3>
+    <h3>Answer : {{answer}}</h3>
+  </mat-card>
+  <!-- <form formArrayName="form">
+    <div *ngFor="let row of form.controls;let i=index">
+      <input *ngFor="let col of row.controls" [formControl]="col">
+    </div>
+  </form>
+
+  <pre>
+    {{form?.value|json}}
+  </pre> -->
+</div>

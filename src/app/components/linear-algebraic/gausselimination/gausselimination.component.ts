@@ -23,6 +23,10 @@ export class GausseliminationComponent implements OnInit {
       [0],
       [-4]
   ];
+
+  listMatrixA:Array<Array<Array<number>>> = [];
+  listMatrixB:Array<Array<Array<number>>> = [];
+  listMatrixX:Array<Array<Array<number>>> = [];
   private matrixX: Array<Array<number>> = [[0], [0], [0]];
   subtractArrayArray(array1:Array<number>,array2:Array<number>,index:number) : Array<number>{
     let result:Array<number> = [] ;
@@ -87,16 +91,19 @@ export class GausseliminationComponent implements OnInit {
           }
           listMatrixX.push(JSON.parse(JSON.stringify(matrixTempX)));
       }
-      return(
-          {
-              listMatrixA:listMatrixA,
-              listMatrixB:listMatrixB,
-              listMatrixX:listMatrixX
-          }
-      );
+      // return(
+      //     {
+              this.listMatrixA = listMatrixA;
+              this.listMatrixB = listMatrixB;
+              this.listMatrixX = listMatrixX;
+          // }
+      // );
   }
   componentDidMount() {
-      console.log(this.cal(this.matrixA,this.matrixX,this.matrixB));
+      this.cal(this.matrixA,this.matrixX,this.matrixB);
+      console.log(this.listMatrixA);
+      console.log(this.listMatrixB);
+      console.log(this.listMatrixA);
   }
 
 }
