@@ -1,16 +1,22 @@
+
 name: CI-numerical
 
-on: push
+on: [push]
 jobs:
-  build:
+  install-and-test:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [17.x]
+
     steps:
       - uses: actions/checkout@master
 
-      - name: Set up Node.js 16.x
+      - name: Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@master
         with:
-          node-version: 16.x
+          node-version: ${{ matrix.node-version }}
 
       ‐ name: Setup
         run: npm ci
