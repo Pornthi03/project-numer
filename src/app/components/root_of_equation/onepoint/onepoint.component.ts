@@ -5,7 +5,7 @@ import { VariableOnepoint } from './variable-onepoint';
 import { RootService } from 'src/app/services/root.service';
 import { Chart, registerables } from "chart.js";
 import zoomPlugin from 'chartjs-plugin-zoom';
-import { RestApiService } from 'src/app/services/rest-api.service';
+import axios from 'axios';
 
 @Component({
   selector: 'app-onepoint',
@@ -14,8 +14,10 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 })
 export class OnepointComponent implements OnInit {
 
+  readonly API_URL = 'http://localhost:7800/NumericalMethod';
+  Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYThAZ21haWwuY29tIiwiaWF0IjoxNjUzNDc3NzYwLCJleHAiOjE2NTM0ODEzNjAsInN1YiI6IjMifQ.uA_ZQyJn7Kpx1yTw4D6GYr5LsUz5DL2NzkM65_T93eA";
+
   onepointValue: any = [];
-  op:any = [];
 
   answer?:number
   error?:number;
@@ -27,7 +29,8 @@ export class OnepointComponent implements OnInit {
   chart:any;
 
 
-  constructor(private fb: FormBuilder,private onepointService:RootService,public restApi: RestApiService) {
+  constructor(private fb: FormBuilder,
+    private onepointService:RootService) {
     this.onepointgroup = this.fb.group({
       equation:['',Validators.required],
       x: ['',Validators.required],
@@ -45,16 +48,18 @@ export class OnepointComponent implements OnInit {
   }
 
   async loadEquation() {
-    console.log( await this.restApi.getEquation().subscribe((data: {}) => {
-      this.op = data;
+    const api = this.API_URL;
+        axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
+            .then(res => {
+                console.log(res.data);
+                console.log(this.Token);
+                for(let i=0;i<res.data.Chapter[2].OnePoint.length;i++){
+                  this.onepointValue.push(res.data.Chapter[2].OnePoint[i]);
+                  console.log(res.data.Chapter[2].OnePoint[i]);
+                }
+                return this.onepointValue
 
-      for(let i=0;i<this.op.Chapter[2].OnePoint.length;i++){
-        this.onepointValue.push(this.op.Chapter[2].OnePoint[i]);
-        console.log(this.op.Chapter[2].OnePoint[i]);
-      }
-      return this.onepointValue
-
-    }))
+              });
 
     console.log(this.onepointValue);
   }

@@ -5,7 +5,7 @@ import { VariableBisection } from './variable-bisection';
 import { RootService } from 'src/app/services/root.service';
 import { Chart, registerables } from "chart.js";
 import zoomPlugin from 'chartjs-plugin-zoom';
-import { RestApiService } from 'src/app/services/rest-api.service';
+import axios from 'axios'
 
 @Component({
   selector: 'app-bisection',
@@ -14,8 +14,10 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 })
 export class BisectionComponent implements OnInit {
 
+  readonly API_URL = 'http://localhost:7800/NumericalMethod';
+  Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYThAZ21haWwuY29tIiwiaWF0IjoxNjUzNDc3NzYwLCJleHAiOjE2NTM0ODEzNjAsInN1YiI6IjMifQ.uA_ZQyJn7Kpx1yTw4D6GYr5LsUz5DL2NzkM65_T93eA";
+
   bisectionValue: any = [];
-  bs: any = [] ;
 
   showequation?:string;
   answer?:number
@@ -30,7 +32,8 @@ export class BisectionComponent implements OnInit {
   xl!:number;
   xr!:number;
 
-  constructor(private fb: FormBuilder,private bisectionService:RootService,public restApi: RestApiService) {
+  constructor(private fb: FormBuilder,
+    private bisectionService:RootService) {
     // this.variable = new VariableBisection("x^4-13",1.5,2.0,0,0,Math.pow(10,-6));
     this.bisectiongroup = this.fb.group({
       equation:['',Validators.required],
@@ -50,18 +53,17 @@ export class BisectionComponent implements OnInit {
   }
 
   async loadEquation() {
-    console.log( await this.restApi.getEquation().subscribe((data: {}) => {
-      this.bs = data;
-
-      for(let i=0;i<this.bs.Chapter[0].Bisection.length;i++){
-        this.bisectionValue.push(this.bs.Chapter[0].Bisection[i]);
-        console.log(this.bs.Chapter[0].Bisection[i]);
-      }
-      return this.bisectionValue
-
-    }))
-
-    console.log(this.bisectionValue);
+    const api = this.API_URL;
+        axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
+            .then(res => {
+                console.log(res.data);
+                console.log(this.Token);
+                      for(let i=0;i<res.data.Chapter[0].Bisection.length;i++){
+                        this.bisectionValue.push(res.data.Chapter[0].Bisection[i]);
+                        console.log(res.data.Chapter[0].Bisection[i]);
+                      }
+                      return this.bisectionValue
+            });
   }
 
   getXLXR(p:string){

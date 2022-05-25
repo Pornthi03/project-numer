@@ -5,7 +5,7 @@ import { VariableNewtonraphon } from './variable-newtonraphon';
 import { RootService } from 'src/app/services/root.service';
 import { Chart, registerables } from "chart.js";
 import zoomPlugin from 'chartjs-plugin-zoom';
-import { RestApiService } from 'src/app/services/rest-api.service';
+import axios from 'axios';
 
 @Component({
   selector: 'app-newtonraphson',
@@ -14,8 +14,10 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 })
 export class NewtonraphsonComponent implements OnInit {
 
+  readonly API_URL = 'http://localhost:7800/NumericalMethod';
+  Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYThAZ21haWwuY29tIiwiaWF0IjoxNjUzNDc3NzYwLCJleHAiOjE2NTM0ODEzNjAsInN1YiI6IjMifQ.uA_ZQyJn7Kpx1yTw4D6GYr5LsUz5DL2NzkM65_T93eA";
+
   newtonValue: any = [];
-  nr:any = [];
 
   answer?:number
   error?:number;
@@ -26,7 +28,8 @@ export class NewtonraphsonComponent implements OnInit {
   chart:any;
   x!:number;
 
-  constructor(private fb: FormBuilder,private newtonraphsonService:RootService,public restApi: RestApiService) {
+  constructor(private fb: FormBuilder,
+    private newtonraphsonService:RootService) {
     this.newtonraphsongroup = this.fb.group({
       equation:['',Validators.required],
       x: ['',Validators.required],
@@ -44,16 +47,18 @@ export class NewtonraphsonComponent implements OnInit {
   }
 
   async loadEquation() {
-    console.log( await this.restApi.getEquation().subscribe((data: {}) => {
-      this.nr = data;
+    const api = this.API_URL;
+        axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
+            .then(res => {
+                console.log(res.data);
+                console.log(this.Token);
+                      for(let i=0;i<res.data.Chapter[3].NewtonRaphson.length;i++){
+                        this.newtonValue.push(res.data.Chapter[3].NewtonRaphson[i]);
+                        console.log(res.data.Chapter[3].NewtonRaphson[i]);
+                      }
+                      return this.newtonValue
 
-      for(let i=0;i<this.nr.Chapter[3].NewtonRaphson.length;i++){
-        this.newtonValue.push(this.nr.Chapter[3].NewtonRaphson[i]);
-        console.log(this.nr.Chapter[3].NewtonRaphson[i]);
-      }
-      return this.newtonValue
-
-    }))
+                    });
 
     console.log(this.newtonValue);
   }

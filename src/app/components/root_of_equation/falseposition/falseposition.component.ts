@@ -5,7 +5,8 @@ import { VariableFalsepositon } from './variable-falsepositon';
 import { RootService } from 'src/app/services/root.service';
 import { Chart, registerables } from "chart.js";
 import zoomPlugin from 'chartjs-plugin-zoom';
-import { RestApiService } from 'src/app/services/rest-api.service';
+import axios from 'axios';
+
 
 @Component({
   selector: 'app-falseposition',
@@ -14,9 +15,10 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 })
 export class FalsepositionComponent implements OnInit {
 
+  readonly API_URL = 'http://localhost:7800/NumericalMethod';
+  Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYThAZ21haWwuY29tIiwiaWF0IjoxNjUzNDc3NzYwLCJleHAiOjE2NTM0ODEzNjAsInN1YiI6IjMifQ.uA_ZQyJn7Kpx1yTw4D6GYr5LsUz5DL2NzkM65_T93eA";
 
   falsepositionValue: any = [];
-  fs:any = [];
   answer?:number
   error?:number;
   x1?:number
@@ -29,7 +31,8 @@ export class FalsepositionComponent implements OnInit {
   xl!:number;
   xr!:number;
 
-  constructor(private fb: FormBuilder,private falsepositionService:RootService,public restApi: RestApiService) {
+  constructor(private fb: FormBuilder,
+    private falsepositionService:RootService) {
     this.falsepositiongroup = this.fb.group({
       equation:['',Validators.required],
       xl: ['',Validators.required],
@@ -48,18 +51,17 @@ export class FalsepositionComponent implements OnInit {
   }
 
   async loadEquation() {
-    console.log( await this.restApi.getEquation().subscribe((data: {}) => {
-      this.fs = data;
-
-      for(let i=0;i<this.fs.Chapter[1].FalsePosition.length;i++){
-        this.falsepositionValue.push(this.fs.Chapter[1].FalsePosition[i]);
-        console.log(this.fs.Chapter[1].FalsePosition[i]);
-      }
-      return this.falsepositionValue
-
-    }))
-
-    console.log(this.falsepositionValue);
+    const api = this.API_URL;
+        axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
+            .then(res => {
+                console.log(res.data);
+                console.log(this.Token);
+                      for(let i=0;i<res.data.Chapter[1].FalsePosition.length;i++){
+                        this.falsepositionValue.push(res.data.Chapter[1].FalsePosition[i]);
+                        console.log(res.data.Chapter[1].FalsePosition[i]);
+                      }
+                      return this.falsepositionValue
+            });
   }
 
   getXLXR(p:string){

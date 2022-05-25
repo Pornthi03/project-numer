@@ -4,7 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { MathjaxModule } from 'mathjax-angular';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 //Angular Material Components
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -56,6 +56,7 @@ import { CholeskyComponent } from './components/linear-algebraic/cholesky/choles
 import { JacobiComponent } from './components/linear-algebraic/jacobi/jacobi.component';
 import { GaussseidelComponent } from './components/linear-algebraic/gaussseidel/gaussseidel.component';
 import { ConjugateComponent } from './components/linear-algebraic/conjugate/conjugate.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 
 
@@ -118,7 +119,7 @@ import { ConjugateComponent } from './components/linear-algebraic/conjugate/conj
     MatSortModule,
     MatPaginatorModule,
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
