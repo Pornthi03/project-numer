@@ -14,10 +14,11 @@ app.use(auth)
 app.use(middlewares);
 
 //Swager
-// const swaggerUi = require('swagger-ui-express');
-// const swaggerDocument = require('./beeba3033.json');
 
-// app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./Pornthi03-Numerical-PP-0.2.json');
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 

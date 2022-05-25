@@ -15,7 +15,8 @@ import { VariableSecant } from './variable-secant';
 export class SecantComponent implements OnInit {
 
   readonly API_URL = 'http://localhost:7800/NumericalMethod';
-  Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYThAZ21haWwuY29tIiwiaWF0IjoxNjUzNDc3NzYwLCJleHAiOjE2NTM0ODEzNjAsInN1YiI6IjMifQ.uA_ZQyJn7Kpx1yTw4D6GYr5LsUz5DL2NzkM65_T93eA";
+  Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYTAzMDEwMUBnbWFpbC5jb20iLCJpYXQiOjE2NTM0ODYyMTUsImV4cCI6MTY1MzQ4OTgxNSwic3ViIjoiNCJ9.rI0fUJICsvgMQiTWsEZ5ZGvwrLWadMqZ01-VOVfQeTY";
+
 
   secantValue: any = [];
 

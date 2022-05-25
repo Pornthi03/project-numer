@@ -1937,6 +1937,24 @@
     "require-from-string" "^2.0.2"
     "uri-js" "^4.2.2"
 
+"angular-sanitize@>=1.5.0 <2":
+  "integrity" "sha512-2rxdqzlUVafUeWOwvY/FtyWk1pFTyCtzreeiTytG9m4smpuAEKaIJAjYeVwWsoV+nlTOcgpwV4W1OCmR+BQbUg=="
+  "resolved" "https://registry.npmjs.org/angular-sanitize/-/angular-sanitize-1.8.3.tgz"
+  "version" "1.8.3"
+
+"angular-swagger-ui@^0.6.5":
+  "integrity" "sha512-7yEhB8uKtCvN9awGcx23yIn0U1/RHJeTdGwvXa7s/3hZ8VGiD/bBb6uty139i8pcGcJREGAHiGJlnnjNlBTLcg=="
+  "resolved" "https://registry.npmjs.org/angular-swagger-ui/-/angular-swagger-ui-0.6.5.tgz"
+  "version" "0.6.5"
+  dependencies:
+    "angular" ">=1.5.0 <2"
+    "angular-sanitize" ">=1.5.0 <2"
+
+"angular@>=1.5.0 <2":
+  "integrity" "sha512-5qjkWIQQVsHj4Sb5TcEs4WZWpFeVFHXwxEBHUhrny41D8UrBAd6T/6nPPAsLngJCReIOqi95W3mxdveveutpZw=="
+  "resolved" "https://registry.npmjs.org/angular/-/angular-1.8.3.tgz"
+  "version" "1.8.3"
+
 "ansi-align@^3.0.0":
   "integrity" "sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w=="
   "resolved" "https://registry.npmjs.org/ansi-align/-/ansi-align-3.0.1.tgz"
@@ -3361,7 +3379,7 @@
     "debug" "*"
     "path-to-regexp" "^1.0.3"
 
-"express@^4.17.1", "express@^4.18.1":
+"express@^4.17.1", "express@^4.18.1", "express@>=4.0.0":
   "integrity" "sha512-zZBcOX9TfehHQhtupq57OF8lFZ3UZi08Y97dwFCkD8p9d/d2Y3M+ykKcwaMDEL+4qyUolgBDX6AblpR3fL212Q=="
   "resolved" "https://registry.npmjs.org/express/-/express-4.18.1.tgz"
   "version" "4.18.1"
@@ -6814,6 +6832,18 @@
   "integrity" "sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w=="
   "resolved" "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   "version" "1.0.0"
+
+"swagger-ui-dist@>=4.11.0":
+  "integrity" "sha512-pf3kfSTYdF9mYFY2VnfJ51wnXlSVhEGdtymhpHzfbFw2jTbiEWgBoVz5EB9aW2EaJvUGTM1YHAXYZX7Jk4RdAQ=="
+  "resolved" "https://registry.npmjs.org/swagger-ui-dist/-/swagger-ui-dist-4.11.1.tgz"
+  "version" "4.11.1"
+
+"swagger-ui-express@^4.4.0":
+  "integrity" "sha512-1CzRkHG386VQMVZK406jcpgnW2a9A5A/NiAjKhsFTQqUBWRF+uGbXTU/mA7WSV3mTzyOQDvjBdWP/c2qd5lqKw=="
+  "resolved" "https://registry.npmjs.org/swagger-ui-express/-/swagger-ui-express-4.4.0.tgz"
+  "version" "4.4.0"
+  dependencies:
+    "swagger-ui-dist" ">=4.11.0"
 
 "symbol-observable@4.0.0":
   "integrity" "sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ=="
