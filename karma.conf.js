@@ -5,6 +5,7 @@ module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    browsers: ['PhantomJS', 'PhantomJS_custom'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
@@ -32,6 +33,24 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
+    customLaunchers: {
+      'PhantomJS_custom': {
+        base: 'PhantomJS',
+        options: {
+          windowName: 'my-window',
+          settings: {
+            webSecurityEnabled: false
+          },
+        },
+        flags: ['--load-images=true'],
+        debug: true
+      }
+    },
+
+    phantomjsLauncher: {
+      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
+      exitOnResourceError: true
+    },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
@@ -39,7 +58,7 @@ module.exports = function (config) {
     autoWatch: true,
     captureTimeout: 60000,
     browserNoActivityTimeout: 360000,
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
     singleRun: false,
     restartOnFileChange: true
   });
