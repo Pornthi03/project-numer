@@ -10,8 +10,7 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
-      require('@angular-devkit/build-angular/plugins/karma'),
-      require('karma-phantomjs-launcher')
+      require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
       jasmine: {
@@ -33,32 +32,18 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
-    customLaunchers: {
-      'PhantomJS_custom': {
-        base: 'PhantomJS',
-        options: {
-          windowName: 'my-window',
-          settings: {
-            webSecurityEnabled: false
-          },
-        },
-        flags: ['--load-images=true'],
-        debug: true
-      }
-    },
-
-    phantomjsLauncher: {
-      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
-      exitOnResourceError: true
-    },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    captureTimeout: 60000,
-    browserNoActivityTimeout: 360000,
-    browsers: ['PhantomJS'],
+    browsers: ['ChromeHeadlessNoSandbox'],
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
     singleRun: false,
     restartOnFileChange: true
   });
