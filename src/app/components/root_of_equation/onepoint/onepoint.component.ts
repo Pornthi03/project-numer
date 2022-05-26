@@ -15,7 +15,7 @@ import axios from 'axios';
 export class OnepointComponent implements OnInit {
 
   readonly API_URL = 'http://localhost:7800/NumericalMethod';
-  Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYTAzMDEwMUBnbWFpbC5jb20iLCJpYXQiOjE2NTM0ODYyMTUsImV4cCI6MTY1MzQ4OTgxNSwic3ViIjoiNCJ9.rI0fUJICsvgMQiTWsEZ5ZGvwrLWadMqZ01-VOVfQeTY";
+  Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYThAZ21haWwuY29tIiwiaWF0IjoxNjUzNTYwMDIzLCJleHAiOjE2NTM1NjM2MjMsInN1YiI6IjMifQ.sAdQtROlw_WVkn0tYcPULa5SP-0ejR5WTIG0Lf-r2R8";
 
 
   onepointValue: any = [];
