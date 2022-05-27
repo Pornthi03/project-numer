@@ -9,5 +9,6 @@ img{
   width: 40%;
 }
 button{
+  margin: 4% auto;
   font-family: 'PT Mono', monospace;
 }

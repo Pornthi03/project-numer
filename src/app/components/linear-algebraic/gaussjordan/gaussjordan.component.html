@@ -1,10 +1,9 @@
 <div id="container" >
   <form>
-    <mat-card id="card">
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="componentDidMount()">calculate</button>
-      </mat-card-actions>
-    </mat-card>
+    <div id="card">
+      <button mat-raised-button color="primary" (click)="componentDidMount()">calculate</button>
+
+    </div>
   </form>
   <!-- <mat-card id="card">
     <div *ngFor="let row of listMatrixA;let i=index">
@@ -14,9 +13,9 @@
     </div>
     <h3>Answer :{{listMatrixX[2]}}</h3>
   </mat-card> -->
-  <mat-card id="card">
+  <div id="card">
     <h3>Answer :{{listMatrixX[2]}}</h3>
-  </mat-card>
+  </div>
   <div class="limiter">
     <div>
       <div>

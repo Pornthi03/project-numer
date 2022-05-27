@@ -17,7 +17,6 @@ import { ConjugateComponent } from './components/linear-algebraic/conjugate/conj
 import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  {path: '',pathMatch:'full', redirectTo: 'home'},
   {path: 'bisection',component:BisectionComponent},
   {path: 'falseposition',component:FalsepositionComponent},
   {path: 'onepoint',component:OnepointComponent},
@@ -31,7 +30,7 @@ const routes: Routes = [
   {path: 'jacobi',component:JacobiComponent},
   {path: 'seidel',component:GaussseidelComponent},
   {path: 'conjugate',component:ConjugateComponent},
-  {path: 'home',component:HomeComponent},
+  {path: '',component:HomeComponent},
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 <div id="container" >
   <form [formGroup]="onepointgroup">
-    <mat-card id="card">
+    <div id="card">
       <mat-card-title>ONEPOINT METHODS</mat-card-title>
       <mat-form-field appearance="fill" id="form">
         <mat-label>Equation</mat-label>
@@ -23,15 +23,14 @@
         <mat-label>Epsilon</mat-label>
         <input matInput formControlName="epsilon" placeholder="0.000001">
       </mat-form-field>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="cal(onepointgroup.value,onepointgroup)">calculate</button>
-      </mat-card-actions>
-    </mat-card>
+      <button mat-raised-button color="primary" (click)="cal(onepointgroup.value,onepointgroup)">calculate</button>
+
+    </div>
   </form>
-  <mat-card id="card">
+  <div id="card">
     <h3>Equation : {{onepointgroup.value.equation}}</h3>
     <h3>Answer : {{answer}}</h3>
-  </mat-card>
+  </div>
   <div class="limiter">
     <div>
       <div>
