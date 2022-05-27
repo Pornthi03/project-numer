@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SecantComponent } from './secant.component';
 
@@ -8,7 +9,9 @@ describe('SecantComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SecantComponent ]
+      declarations: [ SecantComponent ],
+      imports:[FormsModule,
+        ReactiveFormsModule,]
     })
     .compileComponents();
   });

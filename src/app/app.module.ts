@@ -56,7 +56,7 @@ import { CholeskyComponent } from './components/linear-algebraic/cholesky/choles
 import { JacobiComponent } from './components/linear-algebraic/jacobi/jacobi.component';
 import { GaussseidelComponent } from './components/linear-algebraic/gaussseidel/gaussseidel.component';
 import { ConjugateComponent } from './components/linear-algebraic/conjugate/conjugate.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+
 
 
 @NgModule({

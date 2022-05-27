@@ -6,6 +6,7 @@ import { Router, RouterModule, Routes } from '@angular/router';
 import { BisectionComponent } from '../root_of_equation/bisection/bisection.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
@@ -18,7 +19,9 @@ describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports:[RouterModule.forRoot(routes),
-        RouterTestingModule.withRoutes(routes)],
+        RouterTestingModule.withRoutes(routes),
+        FormsModule,
+        ReactiveFormsModule,],
       declarations: [ HomeComponent ],
       providers: [],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

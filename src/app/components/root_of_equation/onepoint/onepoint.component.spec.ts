@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { OnepointComponent } from './onepoint.component';
 
@@ -8,7 +9,9 @@ describe('OnepointComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OnepointComponent ]
+      declarations: [ OnepointComponent ],
+      imports:[FormsModule,
+        ReactiveFormsModule,]
     })
     .compileComponents();
   });
