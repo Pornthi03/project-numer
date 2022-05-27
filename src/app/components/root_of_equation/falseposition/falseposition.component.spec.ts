@@ -65,5 +65,4 @@ describe('FalsepositionComponent', () => {
     await comp.falsepositiongroup.controls['epsilon'].setValue('0.000001');
     expect(comp.falsepositiongroup.valid).toBeTruthy();
   });
-
 });

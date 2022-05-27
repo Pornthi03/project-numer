@@ -1,14 +1,13 @@
 import { DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardTitle } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { BrowserModule, By } from '@angular/platform-browser';
-//Angular Material Components
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatCardModule} from '@angular/material/card';
-//Angular Material Components
+
 import { BisectionComponent } from './bisection.component';
 
 describe('BisectionComponent', () => {
@@ -26,8 +25,8 @@ describe('BisectionComponent', () => {
         MatButtonModule,
         MatInputModule,
         MatFormFieldModule,
-        MatMenuModule,
-        MatCardModule]
+        MatMenuModule
+      ]
     })
     .compileComponents().then(() => {
       fixture = TestBed.createComponent(BisectionComponent);
@@ -66,5 +65,4 @@ describe('BisectionComponent', () => {
     await comp.bisectiongroup.controls['epsilon'].setValue('0.000001');
     expect(comp.bisectiongroup.valid).toBeTruthy();
   });
-
 });

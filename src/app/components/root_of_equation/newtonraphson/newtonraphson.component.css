@@ -40,6 +40,6 @@ table {
   border-collapse: collapse;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-mat-form-field,mat-label,mat-option,mat-select,button,h3{
+mat-card,mat-form-field,mat-label,mat-option,mat-select,button,h3{
   font-family: 'PT Mono', monospace;
 }

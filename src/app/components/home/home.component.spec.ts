@@ -1,29 +1,30 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { APP_BASE_HREF, Location } from "@angular/common";
-import { HomeComponent } from './home.component';
-import { Router, RouterModule, Routes } from '@angular/router';
-import { BisectionComponent } from '../root_of_equation/bisection/bisection.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BisectionComponent } from '../root_of_equation/bisection/bisection.component';
+
+import { HomeComponent } from './home.component';
+
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
-
   const routes: Routes = [
-  {path: 'bisection',component:BisectionComponent}
+    {path: 'bisection',component:BisectionComponent}
   ];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports:[RouterModule.forRoot(routes),
+      imports:[
+        RouterModule.forRoot(routes),
         RouterTestingModule.withRoutes(routes),
         FormsModule,
-        ReactiveFormsModule,],
+        ReactiveFormsModule
+
+      ],
       declarations: [ HomeComponent ],
-      providers: [],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
@@ -32,12 +33,12 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
 
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(HomeComponent);
