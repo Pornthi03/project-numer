@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "start": "node server.js",
+    "start-auth": "node server.js"
+  },
+  "dependencies": {
+    "json-server-auth": "^2.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "swagger-ui-express": "^4.4.0"
+  },
+  "devDependencies": {
+    "json-server": "^0.17.0"
+  }
+}

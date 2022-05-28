@@ -6,6 +6,7 @@ import { RootService } from 'src/app/services/root.service';
 import { Chart, registerables } from "chart.js";
 import zoomPlugin from 'chartjs-plugin-zoom';
 import axios from 'axios'
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-bisection',
@@ -14,7 +15,7 @@ import axios from 'axios'
 })
 export class BisectionComponent implements OnInit {
 
-  readonly API_URL = 'http://localhost:7800/NumericalMethod';
+
   Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYTAzMDEwMUBnbWFpbC5jb20iLCJpYXQiOjE2NTM0ODYyMTUsImV4cCI6MTY1MzQ4OTgxNSwic3ViIjoiNCJ9.rI0fUJICsvgMQiTWsEZ5ZGvwrLWadMqZ01-VOVfQeTY";
 
   bisectionValue: any = [];
@@ -54,7 +55,7 @@ export class BisectionComponent implements OnInit {
   }
 
   async loadEquation() {
-    const api = this.API_URL;
+    const api = environment.API_URL;
         axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
             .then(res => {
                 console.log(res.data);

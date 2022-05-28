@@ -1,0 +1,181 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API-numerical",
+    "description": "defaultDescription",
+    "version": "0.1"
+  },
+  "servers": [
+    {
+      "url": "https://server-numerical.herokuapp.com"
+    }
+  ],
+  "paths": {
+    "/NumericalMethod": {
+      "get": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "examples": {
+                  "0": {
+                    "value": "{\"Bisection\":[{\"xl\":1.75,\"xr\":2,\"equation\":\"x^4-13\"},{\"xl\":0,\"xr\":4,\"equation\":\"x^2-5\"},{\"xl\":1,\"xr\":4,\"equation\":\"X^2+2x-8\"}]}"
+                  },
+                  "1": {
+                    "value": "{\"FalsePosition\":[{\"xl\":0.02,\"xr\":0.03,\"equation\":\"43x-1\"},{\"xl\":1,\"xr\":2,\"equation\":\"x^2-3\"}]}"
+                  },
+                  "2": {
+                    "value": "{\"OnePoint\":[{\"x\":1,\"equation\":\"((x^2)-5)/4\"},{\"x\":0,\"equation\":\"(x+1)/3\"}]}"
+                  },
+                  "3": {
+                    "value": "{\"NewtonRaphson\":[{\"x\":2,\"equation\":\"x^2-7\"}]}"
+                  },
+                  "4": {
+                    "value": "{\"Secant\":[{\"x\":2,\"xi\":2.75,\"equation\":\"x^2-7\"}]}"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://server-numerical.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://server-numerical.herokuapp.com"
+        }
+      ]
+    },
+    "/login": {
+      "post": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login_body"
+              },
+              "examples": {
+                "0": {
+                  "value": "{\r\n    \"email\": \"pornthida8@gmail.com\",\r\n    \"password\":\"030101\"\r\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "examples": {
+                  "0": {
+                    "value": "{\"Token\":\"Example TOKEN\"}"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://server-numerical.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://server-numerical.herokuapp.com"
+        }
+      ]
+    },
+    "/register": {
+      "post": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/register_body"
+              },
+              "examples": {
+                "0": {
+                  "value": "{\r\n    \"email\": \"pornthida030101@gmail.com\",\r\n    \"password\":\"030101\"\r\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "examples": {
+                  "0": {
+                    "value": "{\"Token\":\"Example TOKEN\"}"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://server-numerical.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://server-numerical.herokuapp.com"
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "register_body": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "login_body": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "http://yourauthurl.com",
+            "scopes": {
+              "scope_name": "Enter your scopes here"
+            }
+          }
+        }
+      }
+    }
+  }
+}
