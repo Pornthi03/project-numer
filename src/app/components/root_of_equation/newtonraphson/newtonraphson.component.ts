@@ -6,6 +6,7 @@ import { RootService } from 'src/app/services/root.service';
 import { Chart, registerables } from "chart.js";
 import zoomPlugin from 'chartjs-plugin-zoom';
 import axios from 'axios';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-newtonraphson',
@@ -13,9 +14,6 @@ import axios from 'axios';
   styleUrls: ['./newtonraphson.component.css']
 })
 export class NewtonraphsonComponent implements OnInit {
-
-  readonly API_URL = 'http://localhost:7800/NumericalMethod';
-  Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYTAzMDEwMUBnbWFpbC5jb20iLCJpYXQiOjE2NTM0ODYyMTUsImV4cCI6MTY1MzQ4OTgxNSwic3ViIjoiNCJ9.rI0fUJICsvgMQiTWsEZ5ZGvwrLWadMqZ01-VOVfQeTY";
 
   newtonValue: any = [];
 
@@ -27,6 +25,7 @@ export class NewtonraphsonComponent implements OnInit {
   fxArray:number[] = [];
   chart:any;
   x!:number;
+  Token!:string;
 
   constructor(private fb: FormBuilder,
     private newtonraphsonService:RootService) {
@@ -47,11 +46,14 @@ export class NewtonraphsonComponent implements OnInit {
   }
 
   async loadEquation() {
-    const api = this.API_URL;
-        axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
-            .then(res => {
-                console.log(res.data);
-                console.log(this.Token);
+    const api = environment.API_URL;
+      await axios.post(environment.LOGIN_URL, {
+        email: environment.EMAIL,
+        password: environment.PASSWORD
+      }).then(res => {
+              this.Token = res.data.accessToken;
+              axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
+              .then(res => {
                       for(let i=0;i<res.data.Chapter[3].NewtonRaphson.length;i++){
                         this.newtonValue.push(res.data.Chapter[3].NewtonRaphson[i]);
                         console.log(res.data.Chapter[3].NewtonRaphson[i]);
@@ -59,8 +61,7 @@ export class NewtonraphsonComponent implements OnInit {
                       return this.newtonValue
 
                     });
-
-    console.log(this.newtonValue);
+                  })
   }
 
   getXLXR(p:string){

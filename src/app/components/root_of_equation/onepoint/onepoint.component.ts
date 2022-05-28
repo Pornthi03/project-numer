@@ -6,6 +6,7 @@ import { RootService } from 'src/app/services/root.service';
 import { Chart, registerables } from "chart.js";
 import zoomPlugin from 'chartjs-plugin-zoom';
 import axios from 'axios';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-onepoint',
@@ -13,10 +14,6 @@ import axios from 'axios';
   styleUrls: ['./onepoint.component.css']
 })
 export class OnepointComponent implements OnInit {
-
-  readonly API_URL = 'http://localhost:7800/NumericalMethod';
-  Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYTAzMDEwMUBnbWFpbC5jb20iLCJpYXQiOjE2NTM0ODYyMTUsImV4cCI6MTY1MzQ4OTgxNSwic3ViIjoiNCJ9.rI0fUJICsvgMQiTWsEZ5ZGvwrLWadMqZ01-VOVfQeTY";
-
 
   onepointValue: any = [];
 
@@ -28,6 +25,7 @@ export class OnepointComponent implements OnInit {
   xArray:string[] = [];
   fxArray:number[] = [];
   chart:any;
+  Token!:string;
 
 
   constructor(private fb: FormBuilder,
@@ -49,11 +47,14 @@ export class OnepointComponent implements OnInit {
   }
 
   async loadEquation() {
-    const api = this.API_URL;
-        axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
-            .then(res => {
-                console.log(res.data);
-                console.log(this.Token);
+    const api = environment.API_URL;
+      await axios.post(environment.LOGIN_URL, {
+        email: environment.EMAIL,
+        password: environment.PASSWORD
+      }).then(res => {
+              this.Token = res.data.accessToken;
+              axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
+              .then(res => {
                 for(let i=0;i<res.data.Chapter[2].OnePoint.length;i++){
                   this.onepointValue.push(res.data.Chapter[2].OnePoint[i]);
                   console.log(res.data.Chapter[2].OnePoint[i]);
@@ -62,7 +63,7 @@ export class OnepointComponent implements OnInit {
 
               });
 
-    console.log(this.onepointValue);
+            })
   }
 
   getXLXR(p:string){

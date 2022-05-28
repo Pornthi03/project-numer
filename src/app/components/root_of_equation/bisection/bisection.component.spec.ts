@@ -2,7 +2,6 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardTitle } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
@@ -25,7 +24,7 @@ describe('BisectionComponent', () => {
         MatButtonModule,
         MatInputModule,
         MatFormFieldModule,
-        MatMenuModule
+        MatMenuModule,
       ]
     })
     .compileComponents().then(() => {

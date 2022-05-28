@@ -16,7 +16,6 @@ import { environment } from 'src/environments/environment.prod';
 export class BisectionComponent implements OnInit {
 
 
-  Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYTAzMDEwMUBnbWFpbC5jb20iLCJpYXQiOjE2NTM0ODYyMTUsImV4cCI6MTY1MzQ4OTgxNSwic3ViIjoiNCJ9.rI0fUJICsvgMQiTWsEZ5ZGvwrLWadMqZ01-VOVfQeTY";
 
   bisectionValue: any = [];
 
@@ -29,6 +28,7 @@ export class BisectionComponent implements OnInit {
   xmArray:string[] = [];
   fxmArray:number[] = [];
   chart:any;
+  Token!: string
 
   xl!:number;
   xr!:number;
@@ -54,19 +54,25 @@ export class BisectionComponent implements OnInit {
     this.loadEquation();
   }
 
+
   async loadEquation() {
     const api = environment.API_URL;
-        axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
-            .then(res => {
-                console.log(res.data);
+      await axios.post(environment.LOGIN_URL, {
+        email: environment.EMAIL,
+        password: environment.PASSWORD
+      }).then(res => {
+              this.Token = res.data.accessToken;
+              axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
+              .then(res => {
+                        for(let i=0;i<res.data.Chapter[0].Bisection.length;i++){
+                          this.bisectionValue.push(res.data.Chapter[0].Bisection[i]);
+                          console.log(res.data.Chapter[0].Bisection[i]);
+                        }
+                        return this.bisectionValue
+              });
                 console.log(this.Token);
-                      for(let i=0;i<res.data.Chapter[0].Bisection.length;i++){
-                        this.bisectionValue.push(res.data.Chapter[0].Bisection[i]);
-                        console.log(res.data.Chapter[0].Bisection[i]);
-                      }
-                      return this.bisectionValue
-            });
-  }
+            })
+    }
 
   getXLXR(p:string){
     var XLXR = this.bisectionValue.find((x: any) => x.equation === p);

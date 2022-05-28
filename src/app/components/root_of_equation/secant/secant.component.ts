@@ -5,6 +5,7 @@ import { Chart, registerables } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { parse } from 'mathjs';
 import { RootService } from 'src/app/services/root.service';
+import { environment } from 'src/environments/environment.prod';
 import { VariableSecant } from './variable-secant';
 
 @Component({
@@ -13,10 +14,6 @@ import { VariableSecant } from './variable-secant';
   styleUrls: ['./secant.component.css']
 })
 export class SecantComponent implements OnInit {
-
-  readonly API_URL = 'http://localhost:7800/NumericalMethod';
-  Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvcm50aGlkYTAzMDEwMUBnbWFpbC5jb20iLCJpYXQiOjE2NTM0ODYyMTUsImV4cCI6MTY1MzQ4OTgxNSwic3ViIjoiNCJ9.rI0fUJICsvgMQiTWsEZ5ZGvwrLWadMqZ01-VOVfQeTY";
-
 
   secantValue: any = [];
 
@@ -29,6 +26,7 @@ export class SecantComponent implements OnInit {
   chart:any;
   x!:number;
   xi!:number;
+  Token!:string;
 
   constructor(private fb: FormBuilder,
     private secantService:RootService) {
@@ -51,11 +49,14 @@ export class SecantComponent implements OnInit {
   }
 
   async loadEquation() {
-    const api = this.API_URL;
-        axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
-            .then(res => {
-                console.log(res.data);
-                console.log(this.Token);
+    const api = environment.API_URL;
+      await axios.post(environment.LOGIN_URL, {
+        email: environment.EMAIL,
+        password: environment.PASSWORD
+      }).then(res => {
+              this.Token = res.data.accessToken;
+              axios.get(api, { headers: {"Authorization" : `Bearer ${this.Token}`} })
+              .then(res => {
                   for(let i=0;i<res.data.Chapter[4].Secant.length;i++){
                     this.secantValue.push(res.data.Chapter[4].Secant[i]);
                     console.log(res.data.Chapter[4].Secant[i]);
@@ -64,7 +65,7 @@ export class SecantComponent implements OnInit {
 
                 });
 
-    console.log(this.secantValue);
+              })
   }
   getXLXR(p:string){
     var XLXR = this.secantValue.find((x: any) => x.equation === p);

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControlName, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { MathjaxModule } from 'mathjax-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 //Angular Material Components
