@@ -27,7 +27,8 @@ describe('BisectionComponent', () => {
         MatMenuModule,
       ]
     })
-    .compileComponents().then(() => {
+    .compileComponents().then(async () => {
+      await new Promise((r) => setTimeout(r, 4000));
       fixture = TestBed.createComponent(BisectionComponent);
       comp = fixture.componentInstance;
       de = fixture.debugElement.query(By.css('form'));
