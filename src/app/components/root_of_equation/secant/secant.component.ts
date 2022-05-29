@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import axios from 'axios';
 import { Chart, registerables } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
@@ -30,12 +30,12 @@ export class SecantComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private secantService:RootService) {
-    this.secantgroup = this.fb.group({
-      equation:['',Validators.required],
-      x: ['',Validators.required],
-      xi: ['',Validators.required],
-      epsilon: ['0.000001'],
-      iteration:['1']
+    this.secantgroup = new FormGroup({
+      equation: new FormControl('',Validators.required),
+      x: new FormControl('',Validators.required),
+      xi: new FormControl('',Validators.required),
+      epsilon: new FormControl('0.000001'),
+      iteration: new FormControl('1')
     });
     this.getSecant();
   }

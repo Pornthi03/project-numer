@@ -4,12 +4,12 @@
       <mat-card-title>SECANT METHODS</mat-card-title>
       <mat-form-field appearance="fill" id="form">
         <mat-label>Equation</mat-label>
-        <input matInput formControlName="equation">
+        <input matInput formControlName = "equation">
       </mat-form-field>
       <mat-label>OR</mat-label>
       <mat-form-field appearance="fill" id="form">
         <mat-label>Equation Example</mat-label>
-        <mat-select formControlName="equation">
+        <mat-select formControlName = "equation">
           <mat-option *ngFor="let value of secantValue" [value]="value.equation" (click)="getXLXR(value.equation)">
             {{value.equation}}
           </mat-option>
@@ -17,15 +17,15 @@
       </mat-form-field>
       <mat-form-field appearance="fill" id="form">
         <mat-label>X</mat-label>
-        <input matInput formControlName="x" [(ngModel)]="x">
+        <input matInput formControlName = "x" [(ngModel)]="x">
       </mat-form-field>
       <mat-form-field appearance="fill" id="form">
         <mat-label>Xi</mat-label>
-        <input matInput formControlName="xi" [(ngModel)]="xi">
+        <input matInput formControlName = "xi" [(ngModel)]="xi">
       </mat-form-field>
       <mat-form-field appearance="fill" id="form">
         <mat-label>Epsilon</mat-label>
-        <input matInput formControlName="epsilon" placeholder="0.000001">
+        <input matInput formControlName = "epsilon" placeholder="0.000001">
       </mat-form-field>
       <button mat-raised-button color="primary" (click)="cal(secantgroup.value,secantgroup)">calculate</button>
 

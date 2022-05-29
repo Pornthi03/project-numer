@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { derivative, parse } from 'mathjs';
 import { VariableNewtonraphon } from './variable-newtonraphon';
 import { RootService } from 'src/app/services/root.service';
@@ -29,11 +29,11 @@ export class NewtonraphsonComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private newtonraphsonService:RootService) {
-    this.newtonraphsongroup = this.fb.group({
-      equation:['',Validators.required],
-      x: ['',Validators.required],
-      epsilon: ['0.000001'],
-      iteration:['1']
+    this.newtonraphsongroup = new FormGroup({
+      equation: new FormControl('',Validators.required),
+      x: new FormControl('',Validators.required),
+      epsilon: new FormControl('0.000001'),
+      iteration: new FormControl('1')
     });
     this.getNewtonraphson();
    }

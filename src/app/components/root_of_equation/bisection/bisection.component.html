@@ -4,12 +4,12 @@
       <h1 (click)="refresh()">BISECTION METHODS</h1>
       <mat-form-field appearance="fill" id="form">
         <mat-label>Equation</mat-label>
-        <input matInput formControlName="equation" >
+        <input matInput formControlName = "equation" >
       </mat-form-field>
       <mat-label>OR</mat-label>
       <mat-form-field appearance="fill" id="form">
         <mat-label>Equation Example</mat-label>
-        <mat-select formControlName="equation">
+        <mat-select formControlName = "equation">
           <mat-option *ngFor="let value of bisectionValue" [value]="value.equation" (click)="getXLXR(value.equation)">
             {{value.equation}}
           </mat-option>
@@ -17,15 +17,15 @@
       </mat-form-field>
       <mat-form-field appearance="fill" id="form">
         <mat-label>XL</mat-label>
-        <input matInput formControlName="xl" [(ngModel)]="xl">
+        <input matInput formControlName = "xl" [(ngModel)]="xl">
       </mat-form-field>
       <mat-form-field appearance="fill" id="form">
         <mat-label>XR</mat-label>
-        <input matInput formControlName="xr" [(ngModel)]="xr">
+        <input matInput formControlName = "xr" [(ngModel)]="xr">
       </mat-form-field>
       <mat-form-field appearance="fill" id="form">
         <mat-label>Epsilon</mat-label>
-        <input matInput formControlName="epsilon" placeholder="0.000001">
+        <input matInput formControlName = "epsilon" placeholder="0.000001">
       </mat-form-field>
       <button mat-raised-button color="primary" (click)="cal(bisectiongroup.value,bisectiongroup)">calculate</button>
     </div>

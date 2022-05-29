@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { parse } from 'mathjs';
 import { VariableFalsepositon } from './variable-falsepositon';
 import { RootService } from 'src/app/services/root.service';
@@ -32,12 +32,12 @@ export class FalsepositionComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private falsepositionService:RootService) {
-    this.falsepositiongroup = this.fb.group({
-      equation:['',Validators.required],
-      xl: ['',Validators.required],
-      xr: ['',Validators.required],
-      epsilon: ['0.000001'],
-      iteration:['0']
+    this.falsepositiongroup = new FormGroup({
+      equation: new FormControl('',Validators.required),
+      xl: new FormControl('',Validators.required),
+      xr: new FormControl('',Validators.required),
+      epsilon: new FormControl('0.000001'),
+      iteration: new FormControl('0')
     });
     this.getFalseposition();
   }

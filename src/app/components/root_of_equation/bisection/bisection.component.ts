@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule, FormControl } from '@angular/forms';
 import { parse, string } from 'mathjs';
 import { VariableBisection } from './variable-bisection';
 import { RootService } from 'src/app/services/root.service';
@@ -37,12 +37,12 @@ export class BisectionComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private bisectionService:RootService) {
     // this.variable = new VariableBisection("x^4-13",1.5,2.0,0,0,Math.pow(10,-6));
-    this.bisectiongroup = this.fb.group({
-      equation:['',Validators.required],
-      xl: ['',Validators.required],
-      xr: ['',Validators.required],
-      epsilon: ['0.000001'],
-      iteration:['0']
+    this.bisectiongroup = new FormGroup({
+      equation: new FormControl('',Validators.required),
+      xl: new FormControl('',Validators.required),
+      xr: new FormControl('',Validators.required),
+      epsilon: new FormControl('0.000001'),
+      iteration: new FormControl('0')
     });
     this.getBisection();
   }
@@ -187,7 +187,6 @@ export class BisectionComponent implements OnInit {
 
       this.fxmArray.push(fxm);
       this.xmArray.push(this.xm.toFixed(6));
-      console.log(this.xm.toFixed(6));
 
       if(this.error == Infinity){
         break
